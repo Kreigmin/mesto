@@ -1,0 +1,16 @@
+.profile__add-btn {
+  width: 148px;
+  height: 48px;
+  background-color: transparent;
+  border: 2px solid #fff;
+  background-image: url(../../../images/plus.svg);
+  background-size: 22px 22px;
+  background-position: center;
+  background-repeat: no-repeat;
+  opacity: 1;
+  transition: opacity .3s ease-in-out;
+}
+
+.profile__add-btn:hover {
+  opacity: .6;
+}

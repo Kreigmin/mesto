@@ -1,0 +1,18 @@
+.profile__edit-btn {
+  width: 23px;
+  height: 23px;
+  background-color: transparent;
+  border: 1px solid #fff;
+  background-image: url(../../../images/pen.svg);
+  background-size: 10px 10px;
+  background-position: center;
+  background-repeat: no-repeat;
+  opacity: 1;
+  transition: opacity .3s ease-in-out;
+  margin: 15px 0 0 18px;
+  display: block;
+}
+
+.profile__edit-btn:hover {
+  opacity: .6;
+}
