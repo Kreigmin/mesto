@@ -5,8 +5,7 @@ editBtn.addEventListener('click', function() {
   inputJob.setAttribute('value', profileJob.textContent);
 });
 
-let defaultTextJob = profileJob.textContent;
-
 closeBtn.addEventListener('click', function() {
+  let defaultTextJob = profileJob.textContent;
   inputJob.value = defaultTextJob;
 });
