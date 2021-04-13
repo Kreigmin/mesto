@@ -22,4 +22,4 @@
 
 ### GitHub page
 
-https://kreigmin.github.io/mesto/inde.html
+https://kreigmin.github.io/mesto/index.html
