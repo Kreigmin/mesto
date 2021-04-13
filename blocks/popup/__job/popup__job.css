@@ -13,3 +13,9 @@
   text-align: start;
   outline: 0;
 }
+
+@media (max-width: 420px) {
+  .popup__job {
+    max-width: 84.4%;
+  }
+}

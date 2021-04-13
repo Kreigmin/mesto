@@ -13,3 +13,10 @@
   text-align: start;
   outline: 0;
 }
+
+@media (max-width: 420px) {
+  .popup__name {
+    max-width: 84.4%;
+    margin-top: 75px;
+  }
+}

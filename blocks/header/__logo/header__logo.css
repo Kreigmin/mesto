@@ -7,3 +7,11 @@
   background-size: 142px 32px;
   margin: 0;
 }
+
+@media (max-width: 420px) {
+  .header__logo {
+    width: 103.74px;
+    height: 24.4px;
+    background-size: 103.74px 24.4px;
+  }
+}

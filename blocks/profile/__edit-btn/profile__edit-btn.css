@@ -1,7 +1,6 @@
 .profile__edit-btn {
   width: 23px;
   height: 23px;
-  background-color: transparent;
   border: 1px solid #fff;
   background-image: url(../../../images/pen.svg);
   background-size: 10px 10px;
@@ -15,4 +14,13 @@
 
 .profile__edit-btn:hover {
   opacity: .6;
+}
+
+@media (max-width: 640px) {
+  .profile__edit-btn {
+    width: 17px;
+    height: 17px;
+    background-size: 7.5px 7.5px;
+    margin:  7px 0 0 10px;
+  }
 }

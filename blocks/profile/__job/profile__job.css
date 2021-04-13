@@ -9,3 +9,12 @@
   max-width: 336px;
   width: 100%;
 }
+
+@media (max-width: 640px) {
+  .profile__job {
+    margin-top: 14px;
+    font-size: 14px;
+    line-height: 1.21;
+  }
+}
+

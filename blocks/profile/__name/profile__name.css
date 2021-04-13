@@ -5,6 +5,12 @@
   line-height: 1.14;
   color: #fff;
   margin: 0;
-  display: block;
   max-width: 294px;
+}
+
+@media (max-width: 640px) {
+  .profile__name {
+    font-size: 27px;
+    line-height: 1.22;
+  }
 }

@@ -5,3 +5,11 @@
   margin-top: 40px;
   align-items: center;
 }
+
+@media (max-width: 640px) {
+  .profile {
+    max-width: 282px;
+    flex-direction: column;
+    margin: 42px auto 0;
+  }
+}
