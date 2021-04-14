@@ -1,12 +1,13 @@
 .footer {
-  margin: 66px 0 60px;
-  max-width: 35.91%;
-  width: 100%;
+  margin: 66px 0 60px 200px;
+  max-width: 68.75%;
 }
 
-@media (max-width: 720px) {
+@media (max-width: 1024px) {
   .footer {
-    margin-left: 55px;
+    margin-left: auto;
+    max-width: 100%;
+    text-align: center;
   }
 }
 
@@ -14,5 +15,6 @@
   .footer {
     max-width: 88.125%;
     margin: 48px auto 36px;
+    text-align: start;
   }
 }

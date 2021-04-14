@@ -8,7 +8,7 @@
   max-width: 294px;
 }
 
-@media (max-width: 640px) {
+@media (max-width: 950px) {
   .profile__name {
     font-size: 27px;
     line-height: 1.22;

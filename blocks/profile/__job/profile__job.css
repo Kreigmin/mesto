@@ -10,7 +10,7 @@
   width: 100%;
 }
 
-@media (max-width: 640px) {
+@media (max-width: 950px) {
   .profile__job {
     margin-top: 14px;
     font-size: 14px;
