@@ -1,0 +1,27 @@
+.change-form__input {
+  display: block;
+  margin: 54px auto 0;
+  max-width: 83.26%;
+  width: 100%;
+  border: none;
+  border-bottom: 1px solid rgba(0, 0, 0, .2);
+  padding: 0 0 10px;
+  font-family: 'Inter', Arial, sans-serif;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 1.21;
+  text-align: start;
+  outline: 0;
+}
+
+
+.change-form__input:last-of-type {
+  margin-top: 30px;
+}
+
+@media (max-width: 420px) {
+  .change-form__input {
+    max-width: 84.4%;
+    margin-top: 75px;
+  }
+}
