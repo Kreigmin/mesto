@@ -1,8 +1,8 @@
 //Объявление переменных
 let editBtn = document.querySelector('.profile__edit-btn');// Выбор кнопки редактирования
-let inputName = document.querySelector('.change-form_name_value');// Выбор поля ввода имени
+let inputName = document.querySelector('.change-form__input_name_value');// Выбор поля ввода имени
 let profileName = document.querySelector('.profile__name');// Выбор имени
-let inputJob = document.querySelector('.change-form_job_value');// Выбор поля ввода профессии
+let inputJob = document.querySelector('.change-form__input_job_value');// Выбор поля ввода профессии
 let profileJob = document.querySelector('.profile__job');// Выбор профессии
 let popup = document.querySelector('.popup');// Выбор pop-up'a
 let closeBtn = document.querySelector('.popup__close-btn');// Выбор кнопки закрытия popup
