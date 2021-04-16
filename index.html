@@ -18,11 +18,11 @@
           <img class="profile__avatar" src="./images/Cousteau.png" alt="Аватар">
           <div class="profile__text">
             <h1 class="profile__name">Жак-Ив Кусто</h1>
-            <button class="profile__edit-btn" type="button"></button>
+            <button class="profile__edit-btn" type="button" aria-label="Редактировать"></button>
             <p class="profile__job">Исследователь океана</p>
           </div>
         </div>
-        <button class="profile__add-btn" type="button"></button>
+        <button class="profile__add-btn" type="button" aria-label="Добавить"></button>
       </section>
       <section class="cards"><!--cards-->
         <ul class="cards__list"><!--cards__list-->
@@ -30,42 +30,42 @@
             <img class="card__image" src="./images/baikal.jfif" alt="Озеро Байкал">
             <div class="card__footer">
               <h2 class="card__title">Байкал</h2>
-              <button class="card__like" type="button"></button>
+              <button class="card__like" type="button" aria-label="Нравится"></button>
             </div>
           </li>
           <li class="card">
             <img class="card__image" src="./images/dombay.jfif" alt="Горный хребет Домбай">
             <div class="card__footer">
               <h2 class="card__title">Домбай</h2>
-              <button class="card__like" type="button"></button>
+              <button class="card__like" type="button" aria-label="Нравится"></button>
             </div>
           </li>
           <li class="card">
             <img class="card__image" src="./images/elbrus.jfif" alt="Стратовулкан Эльбрус">
             <div class="card__footer">
               <h2 class="card__title">Вулкан Эльбрус</h2>
-              <button class="card__like" type="button"></button>
+              <button class="card__like" type="button" aria-label="Нравится"></button>
             </div>
           </li>
           <li class="card">
             <img class="card__image" src="./images/elton-lake.jfif" alt="Озеро Эльтон">
             <div class="card__footer">
               <h2 class="card__title">Озеро Эльтон</h2>
-              <button class="card__like" type="button"></button>
+              <button class="card__like" type="button" aria-label="Нравится"></button>
             </div>
           </li>
           <li class="card">
             <img class="card__image" src="./images/kazbek.jfif" alt="Стратовулкан Казбек">
             <div class="card__footer">
               <h2 class="card__title">Вулкан Казбек</h2>
-              <button class="card__like" type="button"></button>
+              <button class="card__like" type="button" aria-label="Нравится"></button>
             </div>
           </li>
           <li class="card">
             <img class="card__image" src="./images/red-square.jfif" alt="Красная площадь">
             <div class="card__footer">
               <h2 class="card__title">Красная площадь</h2>
-              <button class="card__like" type="button"></button>
+              <button class="card__like" type="button" aria-label="Нравится"></button>
             </div>
           </li>
         </ul><!--/cards__list-->
@@ -77,12 +77,12 @@
   </div>
   <div class="popup">
     <div class="popup__container">
-      <button class="popup__close-btn" type="button"></button>
+      <button class="popup__close-btn" type="button" aria-label="Закрыть"></button>
       <form class="change-form" name="profileChangeForm">
         <h2 class="change-form__title">Редактировать профиль</h2>
         <input type="text" class="change-form__input change-form__input_name_value" name="profileName" value="" autocomplete="off">
         <input type="text" class="change-form__input change-form__input_job_value" name="profileJob" value="" autocomplete="off">
-        <button class="change-form__submit-btn" type="submit">Сохранить</button>
+        <button class="change-form__submit-btn" type="submit" aria-labelledby="Сохранить">Сохранить</button>
       </form>
     </div>
   </div>
