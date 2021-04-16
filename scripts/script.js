@@ -10,24 +10,20 @@ let formElement = document.querySelector('.change-form');// Выбор форм�
 
 //Функция открытия popup и добавление данных в input
 function popupOpen() {
-  if (popup.classList.contains('popup_opened') !== true) {// Условие если не равно
-    popup.classList.add('popup_opened');// Добавить класс
-    inputName.setAttribute('value', profileName.textContent);// Добавить имя в input при открытии
-    inputJob.setAttribute('value', profileJob.textContent);// Добавить профессию в input при открытии
-  }
+  popup.classList.add('popup_opened');// Добавить класс
+  inputName.value = profileName.textContent;// Добавить имя в input при открытии
+  inputJob.value = profileJob.textContent; // Добавить профессию в input при открытии
 }
+
 //Функция закрытия popup
 function popupClose() {
   popup.classList.remove('popup_opened');
-  let defaultTextJob = profileJob.textContent;
-  inputJob.value = defaultTextJob;
-  let defaultTextName = profileName.textContent;
-  inputName.value = defaultTextName;
 }
+
 //Функция отправки формы
 function formSubmitHandler(evt) {
   evt.preventDefault();
-  let kak = profileName.textContent = inputName.value;
+  profileName.textContent = inputName.value;
   profileJob.textContent = inputJob.value;
   popupClose();
 }
