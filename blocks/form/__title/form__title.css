@@ -1,4 +1,4 @@
-.change-form__title {
+.form__title {
   max-width: 76.75%;
   margin: 0 auto 0 36px;
   font-family: 'Inter', Arial, sans-serif;
@@ -8,7 +8,7 @@
 }
 
 @media (max-width: 420px) {
-  .change-form__title {
+  .form__title {
     font-size: 18px;
     line-height: 1.22;
     margin: 0 auto;

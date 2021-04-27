@@ -26,15 +26,7 @@
       </section>
       <section class="cards"><!--cards-->
         <ul class="cards__list"><!--cards__list-->
-          <template id="card">
-            <li class="card">
-              <img class="card__image" src="" alt="Озеро Байкал">
-              <div class="card__footer">
-                <h2 class="card__title"></h2>
-                <button class="card__like" type="button" aria-label="Нравится"></button>
-              </div>
-            </li>
-          </template>
+
         </ul><!--/cards__list-->
       </section><!--/cards-->
     </main>
@@ -42,14 +34,34 @@
       <p class="footer__copyright">&copy; 2020 Mesto Russia</p>
     </footer>
   </div>
-  <div class="popup">
+  <template class="card-template">
+    <li class="card">
+      <img class="card__image" src="" alt="">
+      <div class="card__footer">
+        <h2 class="card__title"></h2>
+        <button class="card__like" type="button" aria-label="Нравится"></button>
+      </div>
+    </li>
+  </template>
+  <div class="popup edit-profile-popup" id="edit-profile-popup">
     <div class="popup__container">
-      <button class="popup__close-btn" type="button" aria-label="Закрыть"></button>
-      <form class="change-form" name="profileChangeForm">
-        <h2 class="change-form__title">Редактировать профиль</h2>
-        <input type="text" class="change-form__input change-form__input_name_value" name="profileName" value="" autocomplete="off">
-        <input type="text" class="change-form__input change-form__input_job_value" name="profileJob" value="" autocomplete="off">
-        <button class="change-form__submit-btn" type="submit" aria-labelledby="Сохранить">Сохранить</button>
+      <button class="popup__close-btn close-edit-popup" type="button" aria-label="Закрыть"></button>
+      <form class="form" name="profileChangeForm">
+        <h2 class="form__title">Редактировать профиль</h2>
+        <input type="text" class="form__input change-form__input_name_value" name="profileName" value="" autocomplete="off">
+        <input type="text" class="form__input change-form__input_job_value" name="profileJob" value="" autocomplete="off">
+        <button class="form__submit-btn" type="submit" aria-labelledby="Сохранить">Сохранить</button>
+      </form>
+    </div>
+  </div>
+  <div class="popup add-card-popup" id="add-card-popup">
+    <div class="popup__container">
+      <button class="popup__close-btn close-card-popup" type="button" aria-label="Закрыть"></button>
+      <form class="form" name="profileChangeForm">
+        <h2 class="form__title">Новое место</h2>
+        <input type="text" class="form__input add-form__input_name_value" name="cardName" value="" autocomplete="off" placeholder="Название">
+        <input type="text" class="form__input add-form__input_job_value" name="cardImage" value="" autocomplete="off" placeholder="Ссылка на картинку">
+        <button class="form__submit-btn" type="submit" aria-labelledby="Сохранить">Создать</button>
       </form>
     </div>
   </div>

@@ -1,4 +1,4 @@
-.change-form__submit-btn {
+.form__submit-btn {
   font-family: 'Inter', Arial, sans-serif;
   display: block;
   width: 83.26%;
@@ -15,12 +15,12 @@
   transition: opacity .3s ease-in-out;
 }
 
-.change-form__submit-btn:hover {
+.form__submit-btn:hover {
   opacity: .8;
 }
 
 @media (max-width: 420px) {
-  .change-form__submit-btn {
+  .form__submit-btn {
     width: 84.4%;
     padding: 14px 82px;
     font-size: 14px;

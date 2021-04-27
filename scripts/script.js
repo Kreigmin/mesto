@@ -1,14 +1,28 @@
 //Объявление переменных 4 спринт
-let editBtn = document.querySelector('.profile__edit-btn');// Выбор кнопки редактирования
-let inputName = document.querySelector('.change-form__input_name_value');// Выбор поля ввода имени
-let profileName = document.querySelector('.profile__name');// Выбор имени
-let inputJob = document.querySelector('.change-form__input_job_value');// Выбор поля ввода профессии
-let profileJob = document.querySelector('.profile__job');// Выбор профессии
-let popup = document.querySelector('.popup');// Выбор pop-up'a
-let closeBtn = document.querySelector('.popup__close-btn');// Выбор кнопки закрытия popup
-let formElement = document.querySelector('.change-form');// Выбор формы
+const editBtn = document.querySelector('.profile__edit-btn');// Выбор кнопки редактирования
+const inputName = document.querySelector('.change-form__input_name_value');// Выбор поля ввода имени
+const profileName = document.querySelector('.profile__name');// Выбор имени
+const inputJob = document.querySelector('.change-form__input_job_value');// Выбор поля ввода профессии
+const profileJob = document.querySelector('.profile__job');// Выбор профессии
+const editPopup = document.querySelector('.edit-profile-popup');// Выбор pop-up'a
+const closeEditBtn = document.querySelector('.close-edit-popup');// Выбор кнопки закрытия popup
+const formElement = document.querySelector('.form');// Выбор формы
+
+// const cardElement = cardTemplate.cloneNode(true);
+// const cardTitle = cardElement.querySelector('.card__title');
+// const cardImage = cardElement.querySelector('.card__image');
 
 //Объявление переменных 5 спринт
+const cardList = document.querySelector('.cards__list');
+const cardTemplate = document.querySelector('.card-template').content;
+const cardPopup = document.querySelector('.add-card-popup');
+const addBtn = document.querySelector('.profile__add-btn');
+const closeCardBtn = document.querySelector('.close-card-popup')
+const inputPlaceName = document.querySelector('.add-form__input_name_value');
+const inputPlaceImage = document.querySelector('.add-form__input_job_value');
+// const cardTitle = document.querySelector('.card__title');
+// const cardImage = document.querySelector('.card__image');
+
 const initialCards = [
   {
     name: 'Байкал',
@@ -41,45 +55,51 @@ const initialCards = [
     altImg: 'Красная площадь'
   }
 ];
-const cardList = document.querySelector('.cards__list');
-const cardTemplate = document.querySelector('#card').content;
-// const cardElement = cardTemplate.cloneNode(true);
-// const cardTitle = cardElement.querySelector('.card__title');
-// const cardImage = cardElement.querySelector('.card__image');
 
-function loadData(element) {
+//Функция добавления начальных шести карточек
+const loadData = function(element) {
   const cardElement = cardTemplate.cloneNode(true);
-  const cardImage = cardElement.querySelector('.card__image');
   cardElement.querySelector('.card__title').textContent = element.name;
-  cardImage.src = element.link;
-  cardImage.alt = element.altImg;
+  cardElement.querySelector('.card__image').src = element.link;
+  cardElement.querySelector('.card__image').alt = element.altImg;
   cardList.append(cardElement);
 }
 
-//Функция открытия popup и добавление данных в input
-function popupOpen() {
-  popup.classList.add('popup_opened');// Добавить класс
+//Функция открытия формы изменения профиля и добавление данных в input
+const openEditPopup = function() {
+  editPopup.classList.add('popup_opened');// Добавить класс
   inputName.value = profileName.textContent;// Добавить имя в input при открытии
   inputJob.value = profileJob.textContent; // Добавить профессию в input при открытии
 }
 
-//Функция закрытия popup
-function popupClose() {
-  popup.classList.remove('popup_opened');
+//Функция открытия формы добавления карточки
+const openCardPopup = function() {
+  cardPopup.classList.add('popup_opened');
+  inputPlaceName.value = '';
+  inputPlaceImage.value = '';
 }
 
-//Функция отправки формы
-function formSubmitHandler(evt) {
-  evt.preventDefault();
+//Функция закрытия форм
+const popupClose = function(variable) {
+  variable.classList.remove('popup_opened');
+}
+
+//Функция отправки формы изменения профиля
+const formSubmitHandler =  function(evt) {
+  evt.preventDefault(loadData);
   profileName.textContent = inputName.value;
   profileJob.textContent = inputJob.value;
-  popupClose();
+  popupClose(editPopup);
 }
 
 
-editBtn.addEventListener('click', popupOpen);// открытие формы и добавление данных в input
-closeBtn.addEventListener('click', popupClose);// закрытие формы
-formElement.addEventListener('submit', formSubmitHandler);// отправка формы
 initialCards.forEach(loadData);
-
-
+editBtn.addEventListener('click', openEditPopup);
+addBtn.addEventListener('click', openCardPopup);
+closeEditBtn.addEventListener('click', function() {
+  popupClose(editPopup);
+});
+closeCardBtn.addEventListener('click', function() {
+  popupClose(cardPopup);
+});
+formElement.addEventListener('submit', formSubmitHandler);
