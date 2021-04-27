@@ -6,7 +6,7 @@ const inputJob = document.querySelector('.change-form__input_job_value');// Вы
 const profileJob = document.querySelector('.profile__job');// Выбор профессии
 const editPopup = document.querySelector('.edit-profile-popup');// Выбор pop-up'a
 const closeEditBtn = document.querySelector('.close-edit-popup');// Выбор кнопки закрытия popup
-const formElement = document.querySelector('.form');// Выбор формы
+const profileFormElement = document.querySelector('[name="profileChangeForm"]');// Выбор формы
 
 // const cardElement = cardTemplate.cloneNode(true);
 // const cardTitle = cardElement.querySelector('.card__title');
@@ -20,8 +20,7 @@ const addBtn = document.querySelector('.profile__add-btn');
 const closeCardBtn = document.querySelector('.close-card-popup')
 const inputPlaceName = document.querySelector('.add-form__input_name_value');
 const inputPlaceImage = document.querySelector('.add-form__input_job_value');
-// const cardTitle = document.querySelector('.card__title');
-// const cardImage = document.querySelector('.card__image');
+const addCardForm = document.querySelector('[name="addCardForm"]')
 
 const initialCards = [
   {
@@ -86,11 +85,26 @@ const popupClose = function(variable) {
 
 //Функция отправки формы изменения профиля
 const formSubmitHandler =  function(evt) {
-  evt.preventDefault(loadData);
+  evt.preventDefault();
   profileName.textContent = inputName.value;
   profileJob.textContent = inputJob.value;
   popupClose(editPopup);
 }
+
+//Функция отправки формы добавления карточки
+const submitCardForm = function(evt) {
+  evt.preventDefault();
+  const cardElement = cardTemplate.cloneNode(true);
+  cardElement.querySelector('.card__title').textContent = inputPlaceName.value;
+  cardElement.querySelector('.card__image').src = inputPlaceImage.value;
+  cardList.prepend(cardElement);
+  popupClose(cardPopup);
+}
+
+
+
+
+
 
 
 initialCards.forEach(loadData);
@@ -102,4 +116,5 @@ closeEditBtn.addEventListener('click', function() {
 closeCardBtn.addEventListener('click', function() {
   popupClose(cardPopup);
 });
-formElement.addEventListener('submit', formSubmitHandler);
+profileFormElement.addEventListener('submit', formSubmitHandler);
+addCardForm.addEventListener('submit', submitCardForm);
