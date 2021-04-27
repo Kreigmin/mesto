@@ -8,10 +8,6 @@ const editPopup = document.querySelector('.edit-profile-popup');// Выбор po
 const closeEditBtn = document.querySelector('.close-edit-popup');// Выбор кнопки закрытия popup
 const profileFormElement = document.querySelector('[name="profileChangeForm"]');// Выбор формы
 
-// const cardElement = cardTemplate.cloneNode(true);
-// const cardTitle = cardElement.querySelector('.card__title');
-// const cardImage = cardElement.querySelector('.card__image');
-
 //Объявление переменных 5 спринт
 const cardList = document.querySelector('.cards__list');
 const cardTemplate = document.querySelector('.card-template').content;
@@ -20,8 +16,8 @@ const addBtn = document.querySelector('.profile__add-btn');
 const closeCardBtn = document.querySelector('.close-card-popup')
 const inputPlaceName = document.querySelector('.add-form__input_name_value');
 const inputPlaceImage = document.querySelector('.add-form__input_job_value');
-const addCardForm = document.querySelector('[name="addCardForm"]')
-
+const addCardForm = document.querySelector('[name="addCardForm"]');
+const likeBtn = document.querySelector('.card__like');
 const initialCards = [
   {
     name: 'Байкал',
@@ -55,12 +51,24 @@ const initialCards = [
   }
 ];
 
+// //Функция заливки кнопки лайка
+// const fillLikeBtn = function() {
+//   const cardElement = cardTemplate.cloneNode(true);
+//   cardElement.querySelector('.card__like').addEventListener('click', function(evt) {
+//     evt.target.classList.toggle('card__like_active');
+//   });
+//   cardList.append(cardElement);
+// }
+
 //Функция добавления начальных шести карточек
 const loadData = function(element) {
   const cardElement = cardTemplate.cloneNode(true);
   cardElement.querySelector('.card__title').textContent = element.name;
   cardElement.querySelector('.card__image').src = element.link;
   cardElement.querySelector('.card__image').alt = element.altImg;
+  cardElement.querySelector('.card__like').addEventListener('click', function(evt) {
+    evt.target.classList.toggle('card__like_active');
+  });
   cardList.append(cardElement);
 }
 
@@ -97,6 +105,9 @@ const submitCardForm = function(evt) {
   const cardElement = cardTemplate.cloneNode(true);
   cardElement.querySelector('.card__title').textContent = inputPlaceName.value;
   cardElement.querySelector('.card__image').src = inputPlaceImage.value;
+  cardElement.querySelector('.card__like').addEventListener('click', function(evt) {
+    evt.target.classList.toggle('card__like_active');
+  });
   cardList.prepend(cardElement);
   popupClose(cardPopup);
 }
@@ -118,3 +129,4 @@ closeCardBtn.addEventListener('click', function() {
 });
 profileFormElement.addEventListener('submit', formSubmitHandler);
 addCardForm.addEventListener('submit', submitCardForm);
+cardTemplate.addEventListener('click', fillLikeBtn);
