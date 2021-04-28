@@ -17,7 +17,8 @@ const closeCardBtn = document.querySelector('.close-card-popup')
 const inputPlaceName = document.querySelector('.add-form__input_name_value');
 const inputPlaceImage = document.querySelector('.add-form__input_job_value');
 const addCardForm = document.querySelector('[name="addCardForm"]');
-const likeBtn = document.querySelector('.card__like');
+
+
 const initialCards = [
   {
     name: 'Байкал',
@@ -51,23 +52,21 @@ const initialCards = [
   }
 ];
 
-// //Функция заливки кнопки лайка
-// const fillLikeBtn = function() {
-//   const cardElement = cardTemplate.cloneNode(true);
-//   cardElement.querySelector('.card__like').addEventListener('click', function(evt) {
-//     evt.target.classList.toggle('card__like_active');
-//   });
-//   cardList.append(cardElement);
-// }
 
 //Функция добавления начальных шести карточек
 const loadData = function(element) {
   const cardElement = cardTemplate.cloneNode(true);
+  const deleteCardBtn = cardElement.querySelector('.card__delete-btn');
   cardElement.querySelector('.card__title').textContent = element.name;
   cardElement.querySelector('.card__image').src = element.link;
   cardElement.querySelector('.card__image').alt = element.altImg;
   cardElement.querySelector('.card__like').addEventListener('click', function(evt) {
     evt.target.classList.toggle('card__like_active');
+  });
+  deleteCardBtn.addEventListener('click', function() {
+    const listItem = deleteCardBtn.closest('.card')
+    console.log(listItem);
+    listItem.remove();
   });
   cardList.append(cardElement);
 }
@@ -99,19 +98,26 @@ const formSubmitHandler =  function(evt) {
   popupClose(editPopup);
 }
 
+
+
 //Функция отправки формы добавления карточки
 const submitCardForm = function(evt) {
   evt.preventDefault();
   const cardElement = cardTemplate.cloneNode(true);
+  const deleteCardBtn = cardElement.querySelector('.card__delete-btn');
   cardElement.querySelector('.card__title').textContent = inputPlaceName.value;
   cardElement.querySelector('.card__image').src = inputPlaceImage.value;
   cardElement.querySelector('.card__like').addEventListener('click', function(evt) {
     evt.target.classList.toggle('card__like_active');
   });
+  deleteCardBtn.addEventListener('click', function() {
+    const listItem = deleteCardBtn.closest('.card')
+    console.log(listItem);
+    listItem.remove();
+  });
   cardList.prepend(cardElement);
   popupClose(cardPopup);
 }
-
 
 
 
@@ -129,4 +135,3 @@ closeCardBtn.addEventListener('click', function() {
 });
 profileFormElement.addEventListener('submit', formSubmitHandler);
 addCardForm.addEventListener('submit', submitCardForm);
-cardTemplate.addEventListener('click', fillLikeBtn);
