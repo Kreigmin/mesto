@@ -6,8 +6,18 @@
 /* styles for popup */
 @import url(../blocks/popup/popup.css);
 @import url(../blocks/popup/_opened/popup_opened.css);
-@import url(../blocks/popup/__close-btn/popup__close-btn.css);
 @import url(../blocks/popup/__container/popup__container.css);
+
+/* styles for image-popup */
+@import url(../blocks/image-popup/image-popup.css);
+@import url(../blocks/image-popup/_opened/image-popup_opened.css);
+@import url(../blocks/image-popup/__figure/image-popup__figure.css);
+@import url(../blocks/image-popup/__full-img/image-popup__full-img.css);
+@import url(../blocks/image-popup/__caption/image-popup__caption.css);
+
+
+/* styles for close-btn */
+@import url(../blocks/close-btn/close-btn.css);
 
 /* styles for form */
 @import url(../blocks/form/form.css);
@@ -39,6 +49,7 @@
 @import url(../blocks/card/__like/card__like.css);
 @import url(../blocks/card/__like/_active/card__like_active.css);
 @import url(../blocks/card/__delete-btn/card__delete-btn.css);
+@import url(../blocks/card/__full-img-btn/card__full-img-btn.css);
 
 /* styles for footer */
 @import url(../blocks/footer/footer.css);

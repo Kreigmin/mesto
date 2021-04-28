@@ -37,16 +37,18 @@
   <template class="card-template"><!--card-template-->
     <li class="card">
       <button class="card__delete-btn" type="button" aria-label="Удалить"></button>
-      <img class="card__image" src="" alt="">
+      <button class="card__full-img-btn">
+        <img class="card__image" src="" alt="">
+      </button>
       <div class="card__footer">
         <h2 class="card__title"></h2>
         <button class="card__like" type="button" aria-label="Нравится"></button>
       </div>
     </li>
   </template><!--/card-template-->
-  <div class="popup edit-profile-popup" id="edit-profile-popup"><!--edit-popup-->
+  <div class="popup edit-profile-popup opened"><!--edit-popup-->
     <div class="popup__container">
-      <button class="popup__close-btn close-edit-popup" type="button" aria-label="Закрыть"></button>
+      <button class="close-btn close-edit-popup" type="button" aria-label="Закрыть"></button>
       <form class="form" name="profileChangeForm">
         <h2 class="form__title">Редактировать профиль</h2>
         <input type="text" class="form__input change-form__input_name_value" name="profileName" value="" autocomplete="off">
@@ -55,9 +57,9 @@
       </form>
     </div>
   </div><!--/edit-popup-->
-  <div class="popup add-card-popup" id="add-card-popup"><!--add-popup-->
+  <div class="popup add-card-popup"><!--add-popup-->
     <div class="popup__container">
-      <button class="popup__close-btn close-card-popup" type="button" aria-label="Закрыть"></button>
+      <button class="close-btn close-card-popup" type="button" aria-label="Закрыть"></button>
       <form class="form" name="addCardForm">
         <h2 class="form__title">Новое место</h2>
         <input type="text" class="form__input add-form__input_name_value" name="cardName" value="" autocomplete="off" placeholder="Название">
@@ -66,6 +68,13 @@
       </form>
     </div>
   </div><!--/add-popup-->
+  <div class="image-popup open-image-popup">
+    <figure class="image-popup__figure">
+      <button class="close-btn close-image-popup" type="button" aria-label="Закрыть"></button>
+      <img class="image-popup__full-img" src="./images/baikal.jfif" alt="">
+      <figcaption class="image-popup__caption"></figcaption>
+    </figure>
+  </div>
   <script src="./scripts/script.js"></script>
 </body>
 </html>

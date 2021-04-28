@@ -17,7 +17,10 @@ const closeCardBtn = document.querySelector('.close-card-popup')
 const inputPlaceName = document.querySelector('.add-form__input_name_value');
 const inputPlaceImage = document.querySelector('.add-form__input_job_value');
 const addCardForm = document.querySelector('[name="addCardForm"]');
-
+const imagePopup = document.querySelector('.open-image-popup');
+const imageCaption = document.querySelector('.image-popup__caption');
+const popupFullImage = document.querySelector('.image-popup__full-img');
+const closeImgPopupBtn = document.querySelector('.close-image-popup');
 
 const initialCards = [
   {
@@ -52,7 +55,6 @@ const initialCards = [
   }
 ];
 
-
 //Функция добавления начальных шести карточек
 const loadData = function(element) {
   const cardElement = cardTemplate.cloneNode(true);
@@ -71,6 +73,27 @@ const loadData = function(element) {
   cardList.append(cardElement);
 }
 
+initialCards.forEach(loadData);
+
+const imagePopupBtn = document.querySelectorAll('.card__full-img-btn');
+const cardImage = document.querySelectorAll('.card__image');
+const cardTitle = document.querySelectorAll('.card__title');
+
+const openImagePopup = function(item, index) {
+  item.addEventListener('click', function() {
+    imagePopup.classList.add('image-popup_opened');
+    popupFullImage.src = cardImage[index].src;
+    imageCaption.textContent = cardTitle[index].textContent;
+  });
+}
+
+
+
+
+
+
+
+
 //Функция открытия формы изменения профиля и добавление данных в input
 const openEditPopup = function() {
   editPopup.classList.add('popup_opened');// Добавить класс
@@ -86,8 +109,8 @@ const openCardPopup = function() {
 }
 
 //Функция закрытия форм
-const popupClose = function(variable) {
-  variable.classList.remove('popup_opened');
+const popupClose = function(variable, className) {
+  variable.classList.remove(className);
 }
 
 //Функция отправки формы изменения профиля
@@ -97,7 +120,6 @@ const formSubmitHandler =  function(evt) {
   profileJob.textContent = inputJob.value;
   popupClose(editPopup);
 }
-
 
 
 //Функция отправки формы добавления карточки
@@ -123,15 +145,18 @@ const submitCardForm = function(evt) {
 
 
 
-
-initialCards.forEach(loadData);
 editBtn.addEventListener('click', openEditPopup);
 addBtn.addEventListener('click', openCardPopup);
 closeEditBtn.addEventListener('click', function() {
-  popupClose(editPopup);
+  popupClose(editPopup, 'popup_opened');
 });
 closeCardBtn.addEventListener('click', function() {
-  popupClose(cardPopup);
+  popupClose(cardPopup, 'popup_opened');
 });
 profileFormElement.addEventListener('submit', formSubmitHandler);
 addCardForm.addEventListener('submit', submitCardForm);
+imagePopupBtn.forEach(openImagePopup);
+closeImgPopupBtn.addEventListener('click', function() {
+  popupClose(imagePopup, 'image-popup_opened');
+})
+
