@@ -1,8 +1,8 @@
 //Объявление переменных 4 спринт-----------------------------------------------------------------------------------------------
 const editBtn = document.querySelector('.profile__edit-btn');// Выбор кнопки редактирования
-const inputName = document.querySelector('.change-form__input_name_value');// Выбор поля ввода имени
+const inputName = document.querySelector('.form__input_name_value');// Выбор поля ввода имени
 const profileName = document.querySelector('.profile__name');// Выбор имени
-const inputJob = document.querySelector('.change-form__input_job_value');// Выбор поля ввода профессии
+const inputJob = document.querySelector('.form__input_job_value');// Выбор поля ввода профессии
 const profileJob = document.querySelector('.profile__job');// Выбор профессии
 const editPopup = document.querySelector('.edit-profile-popup');// Выбор pop-up'a
 const closeEditBtn = document.querySelector('.close-edit-popup');// Выбор кнопки закрытия popup
@@ -13,8 +13,8 @@ const cardList = document.querySelector('.cards__list');//выбор списк�
 const cardPopup = document.querySelector('.add-card-popup');//выбор popup добавления карточки
 const addBtn = document.querySelector('.profile__add-btn');//выбор кнопки открытия popup добавления карточки
 const closeCardBtn = document.querySelector('.close-card-popup')//выбор кнопки закрытия popup добавления карточки
-const inputPlaceName = document.querySelector('.add-form__input_name_value');//выбор поля названия карточки
-const inputPlaceImage = document.querySelector('.add-form__input_link_value');//выбор поля ссылки карточки
+const inputPlaceName = document.querySelector('.form__input_card-name_value');//выбор поля названия карточки
+const inputPlaceImage = document.querySelector('.form__input_card-link_value');//выбор поля ссылки карточки
 const addCardForm = document.querySelector('[name="addCardForm"]');//выбор формы добавления карточки
 const imagePopup = document.querySelector('.open-image-popup');//выбор popup показа полного изображения карточки
 const imageCaption = document.querySelector('.image-popup__caption');//выбор подписи изображения в popup полного изображения карточки
