@@ -7,10 +7,11 @@
 @import url(../blocks/popup/popup.css);
 @import url(../blocks/popup/_opened/popup_opened.css);
 @import url(../blocks/popup/__container/popup__container.css);
+@import url(../blocks/popup/_gb-alfa/popup_bg-alfa_dark.css);
+@import url(../blocks/popup/_gb-alfa/popup_bg-alfa_black.css);
 
 /* styles for image-popup */
 @import url(../blocks/image-popup/image-popup.css);
-@import url(../blocks/image-popup/_opened/image-popup_opened.css);
 @import url(../blocks/image-popup/__figure/image-popup__figure.css);
 @import url(../blocks/image-popup/__full-img/image-popup__full-img.css);
 @import url(../blocks/image-popup/__caption/image-popup__caption.css);
