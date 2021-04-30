@@ -34,25 +34,13 @@
       <p class="footer__copyright">&copy; 2020 Mesto Russia</p>
     </footer>
   </div>
-  <template class="card-template">
-    <li class="card">
-      <button class="card__delete-btn" type="button" aria-label="Удалить"></button>
-      <button class="card__full-img-btn">
-        <img class="card__image" src="#" alt="">
-      </button>
-      <div class="card__footer">
-        <h2 class="card__title"></h2>
-        <button class="card__like" type="button" aria-label="Нравится"></button>
-      </div>
-    </li>
-  </template>
   <div class="popup edit-profile-popup opened"><!--edit-popup-->
     <div class="popup__container">
       <button class="close-btn close-edit-popup" type="button" aria-label="Закрыть"></button>
       <form class="form" name="profileChangeForm">
         <h2 class="form__title">Редактировать профиль</h2>
-        <input type="text" class="form__input form__input_name_value" name="profileName" value="" autocomplete="off">
-        <input type="text" class="form__input form__input_job_value" name="profileJob" value="" autocomplete="off">
+        <input type="text" class="form__input form__input_name_value" name="profileName" value="" autocomplete="off" placeholder="Имя">
+        <input type="text" class="form__input form__input_job_value" name="profileJob" value="" autocomplete="off" placeholder="Профессия">
         <button class="form__submit-btn" type="submit" aria-labelledby="Сохранить">Сохранить</button>
       </form>
     </div>
@@ -75,6 +63,18 @@
       <figcaption class="image-popup__caption"></figcaption>
     </figure>
   </div>
+  <template class="card-template">
+    <li class="card">
+      <button class="card__delete-btn" type="button" aria-label="Удалить"></button>
+      <button class="card__full-img-btn">
+        <img class="card__image" src="#" alt="">
+      </button>
+      <div class="card__footer">
+        <h2 class="card__title"></h2>
+        <button class="card__like" type="button" aria-label="Нравится"></button>
+      </div>
+    </li>
+  </template>
   <script src="./scripts/script.js"></script>
 </body>
 </html>
