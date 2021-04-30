@@ -6,7 +6,7 @@ const inputJob = document.querySelector('.form__input_job_value');// Выбор 
 const profileJob = document.querySelector('.profile__job');// Выбор профессии
 const editPopup = document.querySelector('.edit-profile-popup');// Выбор pop-up'a
 const closeEditBtn = document.querySelector('.close-edit-popup');// Выбор кнопки закрытия popup
-const profileFormElement = document.querySelector('[name="profileChangeForm"]');// Выбор формы
+const profileFormElement = document.querySelector('.profileChangeForm');// Выбор формы изменения профиля
 
 //Объявление переменных 5 спринт-----------------------------------------------------------------------------------------------
 const cardList = document.querySelector('.cards__list');//выбор списка карточек
@@ -15,7 +15,7 @@ const addBtn = document.querySelector('.profile__add-btn');//выбор кноп
 const closeCardBtn = document.querySelector('.close-card-popup')//выбор кнопки закрытия popup добавления карточки
 const inputPlaceName = document.querySelector('.form__input_card-name_value');//выбор поля названия карточки
 const inputPlaceImage = document.querySelector('.form__input_card-link_value');//выбор поля ссылки карточки
-const addCardForm = document.querySelector('[name="addCardForm"]');//выбор формы добавления карточки
+const addCardForm = document.querySelector('.addCardForm');//выбор формы добавления карточки
 const imagePopup = document.querySelector('.open-image-popup');//выбор popup показа полного изображения карточки
 const imageCaption = document.querySelector('.image-popup__caption');//выбор подписи изображения в popup полного изображения карточки
 const popupFullImage = document.querySelector('.image-popup__full-img');//выбор изображения в popup полного изображения карточки
@@ -50,7 +50,7 @@ const initialCards = [//начальный массив для карточек
 ];
 //Функция открытия popup
 const popupOpen = function(button) {
-  button.classList.add('popup_opened');
+  button.classList.add('popup_opened');//добавление класса к popup
 }
 
 //Функция закрытия popup--------------------------------------------------------------------------------------------------------
@@ -74,8 +74,6 @@ const formSubmitHandler =  function(evt) {//объявление перемен�
 //Функция открытия формы добавления карточки-----------------------------------------------------------------------------------
 const openCardPopup = function() {//объявление переменной
   popupOpen(cardPopup);//добавить класс в popup
-  inputPlaceName.value = '';//очистить поле ввода имени карточки
-  inputPlaceImage.value = '';//очисить поле ввода ссылки картинки
 }
 
 //Функция загрузки начальных шести карточек-----------------------------------------------------------------------------------
@@ -120,35 +118,42 @@ const submitCardForm = function(evt) {// Объявление перемнной
   evt.preventDefault();//предовращение стандартного выполнения функции
   addCard();//вызов функции добавления карточки
   openImagePopup();//вызов функции открытия popup полной картинки из карточки
+  addCardForm.reset();//функция очистки формы
   popupClose(cardPopup);//вызов функции закрытия popup добавления карточки
 }
 
 //Функция открытия окна полной картинки---------------------------------------------------------------------------------
 const openImagePopup = function() {// Объявление перемнной
-  document.querySelectorAll('.card__full-img-btn').forEach(function(item, index) {//вызвать метод forEach для всех кнопок
+  const fullImagebuttons = document.querySelectorAll('.card__full-img-btn');
+  const cardImages = document.querySelectorAll('.card__image');
+  const cardTitles = document.querySelectorAll('.card__title')
+  fullImagebuttons.forEach(function(item, index) {//вызвать метод forEach для всех кнопок
     item.addEventListener('click', function() {//слушатель при нажании
-      imagePopup.classList.add('popup_opened');//добавить класс открытия popup
-      popupFullImage.src = document.querySelectorAll('.card__image')[index].src;//в src картинки в popup добавить src картинки карточки
-      imageCaption.textContent = document.querySelectorAll('.card__title')[index].textContent;//в подпись по картиной в popup добавить название карточки
+      popupOpen(imagePopup);//добавить класс открытия popup
+      popupFullImage.src = cardImages[index].src;//в src картинки в popup добавить src картинки карточки
+      imageCaption.textContent = cardTitles[index].textContent;//в подпись по картиной в popup добавить название карточки
     });
   });
 }
 
-editBtn.addEventListener('click', function(){
+editBtn.addEventListener('click', function(){//Слушатель при нажании открыть popup изменения профиля
   popupOpen(editPopup);//вызов функции открытия popup
   inputName.value = profileName.textContent;// Добавить имя в input при открытии
   inputJob.value = profileJob.textContent; // Добавить профессию в input при открытии
-});//Слушатель при нажании открыть popup изменения профиля
+});
 
 addBtn.addEventListener('click', openCardPopup);//Слушатель при нажании открыть popup добавления карточки
 
 closeEditBtn.addEventListener('click', function() {//Слушатель при нажании закрыть popup изменения профиля
   popupClose(editPopup);//вызвать функцию закрытия popup
+
 });
 
 closeCardBtn.addEventListener('click', function() {//Слушатель при нажании закрыть popup добавления карточки
+  addCardForm.reset();//функция очистки формы. Добавил её сюда для того чтобы очищались поля если пользователь передумает добавлять карточку
   popupClose(cardPopup);//вызвать функцию закрытия popup
 });
+
 profileFormElement.addEventListener('submit', formSubmitHandler);//Слушатель при отправке формы выполнить функцию formSubmitHandler
 
 openImagePopup();//вызвать функцию открытия popup полной картинки
