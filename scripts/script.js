@@ -48,7 +48,8 @@ const initialCards = [//начальный массив для карточек
     link: './images/red-square.jfif'
   }
 ];
-//Функция открытия popup
+
+//Функция открытия popup--------------------------------------------------------------------------------------------------------
 const popupOpen = function(button) {
   button.classList.add('popup_opened');//добавление класса к popup
 }
@@ -66,75 +67,55 @@ const formSubmitHandler =  function(evt) {//объявление перемен�
   popupClose(editPopup);//вызов функции закрытия popup
 }
 
-// //Функция открытия формы изменения профиля и добавление данных в input----------------------------------------------------------
-// const openEditPopup = function() {//объявление переменной
-//   popupOpen(editPopup);// Добавить класс
-// }
-
 //Функция открытия формы добавления карточки-----------------------------------------------------------------------------------
 const openCardPopup = function() {//объявление переменной
   popupOpen(cardPopup);//добавить класс в popup
 }
 
-//Функция загрузки начальных шести карточек-----------------------------------------------------------------------------------
-const loadData = function(element) {//объявление переменной
+//функция инициализации карточки-----------------------------------------------------------------------------------
+const getCardElement = function(name, link) {
   const cardElement = cardTemplate.querySelector('.card').cloneNode(true);//клонирование всего узла карточки
   const deleteCardBtn = cardElement.querySelector('.card__delete-btn');// запись в переменную кнопки удаления карточки
-  cardElement.querySelector('.card__title').textContent = element.name;// запись в название карточки из  массива
-  cardElement.querySelector('.card__image').src = element.link;// запись в путь картинки карточки из массива
-  cardElement.querySelector('.card__image').alt = element.name;// запись в алтернативное название картинки из массива
-  cardList.append(cardElement);//добавление карточки в DOM
-  cardElement.querySelector('.card__like').addEventListener('click', function(evt) {//слушатель при нажатии на кнопку лайка
-    evt.target.classList.toggle('card__like_active');//добавить класс к кнопке
+  const cardTitle = cardElement.querySelector('.card__title');//запись в переменную названия карточки
+  const cardImage = cardElement.querySelector('.card__image');//запись в переменную изображения карточки
+  const cardLike = cardElement.querySelector('.card__like');//запись в переменную кнопки лайка
+  const previewImageBtn = cardElement.querySelector('.card__full-img-btn');//запись в переменную кнопки превью изображения
+  cardTitle.textContent = name;//запись текста в название карточки
+  cardImage.alt = name;//запись текста в альтернативное название изображения
+  cardImage.src = link;//запись ссылки в изображение карточки
+  cardLike.addEventListener('click', function(evt) {
+    evt.target.classList.toggle('card__like_active');//добавить или удалить класс кнопке лайка
   });
-  deleteCardBtn.addEventListener('click', function() {//слушатель при нажатии на кнопку удалить карточку
-    const listItem = deleteCardBtn.closest('.card');//выбор ближайшего родителя с классом card
-    listItem.remove();//удаление карточки
-    openImagePopup();
+  deleteCardBtn.addEventListener('click', function() {
+    const listItem = deleteCardBtn.closest('.card');//выбрать ближайший родитель кнопки удаления карточки
+    listItem.remove();//удалить карточку
   });
+  previewImageBtn.addEventListener('click', function() {
+    popupOpen(imagePopup);//вызвать функцию открытия полного изображения карточки
+    popupFullImage.src = cardImage.src;// запись ссылки из картинки карточки в изображение превью
+    imageCaption.textContent = cardTitle.textContent;//запись названия карточки в подпись изображения в превью
+  })
+  return cardElement;// вернуть елемент
 }
-initialCards.forEach(loadData);//вызов метода forEach c функцией добавления начальных карточек для массива initialCards
 
-
-//Функция  добавления карточки-----------------------------------------------------------------------------------------------
-const addCard = function() {// Объявление перемнной
-  const cardElement = cardTemplate.querySelector('.card').cloneNode(true);//клонирование всего узла карточки
-  const deleteCardBtn = cardElement.querySelector('.card__delete-btn');// запись в переменную кнопки удаления карточки
-  cardElement.querySelector('.card__title').textContent = inputPlaceName.value;// запись в название карточки из  popup
-  cardElement.querySelector('.card__image').src = inputPlaceImage.value;// запись в путь картинки карточки из  popup
-  cardElement.querySelector('.card__image').alt = inputPlaceName.value;// запись в алтернативное название картинки из popup
-  cardList.prepend(cardElement);//добавление карточки в DOM
-  cardElement.querySelector('.card__like').addEventListener('click', function(evt) {//слушатель при нажатии на кнопку лайка
-    evt.target.classList.toggle('card__like_active');//добавить класс к кнопке
-  });
-  deleteCardBtn.addEventListener('click', function() {//слушатель при нажатии на кнопку удалить карточку
-    const listItem = deleteCardBtn.closest('.card')//выбор ближайшего родителя с классом card
-    listItem.remove();//удаление карточки
-    openImagePopup();
-  });
+//функция добавления карточки в контейнер---------------------------------------------------------------------
+const renderCard = function(name, link, wrap) {
+  wrap.prepend(getCardElement(name, link));//вызвать метод prepend для записи карточки в контейнер
 }
+
+//функция добавления новой карточки-----------------------------------------------------------------------------------
+const addNewCard = function() {
+  renderCard(inputPlaceName.value, inputPlaceImage.value, cardList)// вызов функции добавления в контейнер для новой карточки
+}
+
 //Функция отправки формы добавления карточки---------------------------------------------------------------------------------
 const submitCardForm = function(evt) {// Объявление перемнной
   evt.preventDefault();//предовращение стандартного выполнения функции
-  addCard();//вызов функции добавления карточки
-  openImagePopup();//вызов функции открытия popup полной картинки из карточки
+  addNewCard();//вызов функции добавления карточки
   addCardForm.reset();//функция очистки формы
   popupClose(cardPopup);//вызов функции закрытия popup добавления карточки
 }
 
-//Функция открытия окна полной картинки---------------------------------------------------------------------------------
-const openImagePopup = function() {// Объявление перемнной
-  const fullImagebuttons = document.querySelectorAll('.card__full-img-btn');
-  const cardImages = document.querySelectorAll('.card__image');
-  const cardTitles = document.querySelectorAll('.card__title')
-  fullImagebuttons.forEach(function(item, index) {//вызвать метод forEach для всех кнопок
-    item.addEventListener('click', function() {//слушатель при нажании
-      popupOpen(imagePopup);//добавить класс открытия popup
-      popupFullImage.src = cardImages[index].src;//в src картинки в popup добавить src картинки карточки
-      imageCaption.textContent = cardTitles[index].textContent;//в подпись по картиной в popup добавить название карточки
-    });
-  });
-}
 
 editBtn.addEventListener('click', function(){//Слушатель при нажании открыть popup изменения профиля
   popupOpen(editPopup);//вызов функции открытия popup
@@ -146,7 +127,6 @@ addBtn.addEventListener('click', openCardPopup);//Слушатель при на
 
 closeEditBtn.addEventListener('click', function() {//Слушатель при нажании закрыть popup изменения профиля
   popupClose(editPopup);//вызвать функцию закрытия popup
-
 });
 
 closeCardBtn.addEventListener('click', function() {//Слушатель при нажании закрыть popup добавления карточки
@@ -156,10 +136,13 @@ closeCardBtn.addEventListener('click', function() {//Слушатель при �
 
 profileFormElement.addEventListener('submit', formSubmitHandler);//Слушатель при отправке формы выполнить функцию formSubmitHandler
 
-openImagePopup();//вызвать функцию открытия popup полной картинки
-
 addCardForm.addEventListener('submit', submitCardForm);//Слушатель при отправке формы выполнить функцию submitCardForm
 
 closeImgPopupBtn.addEventListener('click', function() {//Слушатель при нажании закрыть popup полной картинки
   popupClose(imagePopup);//вызвать функцию закрытия popup
+});
+
+//добавление начальных карточек-----------------------------------------------------------------------------------
+initialCards.forEach(function(item) {
+  renderCard(item.name, item.link, cardList);
 });
