@@ -12,7 +12,6 @@
 
 /* styles for image-popup */
 @import url(../blocks/image-popup/image-popup.css);
-@import url(../blocks/image-popup/__figure/image-popup__figure.css);
 @import url(../blocks/image-popup/__full-img/image-popup__full-img.css);
 @import url(../blocks/image-popup/__caption/image-popup__caption.css);
 
