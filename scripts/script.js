@@ -93,6 +93,7 @@ const getCardElement = function(name, link) {
   previewImageBtn.addEventListener('click', function() {
     popupOpen(imagePopup);//вызвать функцию открытия полного изображения карточки
     popupFullImage.src = cardImage.src;// запись ссылки из картинки карточки в изображение превью
+    popupFullImage.alt = cardTitle.textContent
     imageCaption.textContent = cardTitle.textContent;//запись названия карточки в подпись изображения в превью
   })
   return cardElement;// вернуть елемент
@@ -103,15 +104,10 @@ const renderCard = function(name, link, wrap) {
   wrap.prepend(getCardElement(name, link));//вызвать метод prepend для записи карточки в контейнер
 }
 
-//функция добавления новой карточки-----------------------------------------------------------------------------------
-const addNewCard = function() {
-  renderCard(inputPlaceName.value, inputPlaceImage.value, cardList)// вызов функции добавления в контейнер для новой карточки
-}
-
 //Функция отправки формы добавления карточки---------------------------------------------------------------------------------
 const submitCardForm = function(evt) {// Объявление перемнной
   evt.preventDefault();//предовращение стандартного выполнения функции
-  addNewCard();//вызов функции добавления карточки
+  renderCard(inputPlaceName.value, inputPlaceImage.value, cardList);//вызов функции добавления карточки
   addCardForm.reset();//функция очистки формы
   popupClose(cardPopup);//вызов функции закрытия popup добавления карточки
 }
