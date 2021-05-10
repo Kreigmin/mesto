@@ -1,7 +1,7 @@
 .form__input {
   display: block;
-  margin: 54px auto 0;
-  max-width: 83.26%;
+  margin: 0;
+  max-width: 100%;
   width: 100%;
   border: none;
   border-bottom: 1px solid rgba(0, 0, 0, .2);
@@ -12,11 +12,6 @@
   line-height: 1.21;
   text-align: start;
   outline: 0;
-}
-
-
-.form__input:last-of-type {
-  margin-top: 30px;
 }
 
 @media (max-width: 420px) {
