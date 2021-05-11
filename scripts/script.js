@@ -59,6 +59,12 @@ const popupClose = function(button) {//объявление переменной
   button.classList.remove('popup_opened');//удаление класса из popup
 }
 
+const closeKeyHandler = (evt, popup) => {
+  if (evt.key === 'Escape') {
+    popupClose(popup);
+  }
+}
+
 //Функция отправки формы изменения профиля-------------------------------------------------------------------------------------
 const formSubmitHandler =  function(evt) {//объявление переменной
   evt.preventDefault();//предовращение стандартного выполнения функции
@@ -95,6 +101,9 @@ const getCardElement = function(name, link) {
     popupFullImage.src = cardImage.src;// запись ссылки из картинки карточки в изображение превью
     popupFullImage.alt = cardTitle.textContent
     imageCaption.textContent = cardTitle.textContent;//запись названия карточки в подпись изображения в превью
+  });
+  previewImageBtn.addEventListener('keydown', function(evt) {
+    closeKeyHandler(evt, imagePopup);
   })
   return cardElement;// вернуть елемент
 }
@@ -141,4 +150,12 @@ closeImgPopupBtn.addEventListener('click', function() {//Слушатель пр
 //добавление начальных карточек-----------------------------------------------------------------------------------
 initialCards.forEach(function(item) {
   renderCard(item.name, item.link, cardList);
+});
+
+editBtn.addEventListener('keydown', function(evt) {
+  closeKeyHandler(evt, editPopup);
+});
+
+addBtn.addEventListener('keydown', function(evt) {
+  closeKeyHandler(evt, cardPopup);
 });
