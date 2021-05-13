@@ -59,9 +59,17 @@ const popupClose = function(button) {//объявление переменной
   button.classList.remove('popup_opened');//удаление класса из popup
 }
 
-const closeKeyHandler = (evt, popup) => {
+//Функция закрытия popup по кнопке Escape-------------------------------------------------------------------------------------
+const closePopupOnPressKey = (evt, popup) => {
   if (evt.key === 'Escape') {
     popupClose(popup);
+  }
+}
+
+//Функция закрытия popup по нажатию на overlay-------------------------------------------------------------------------------------
+const closePopupOnOverlay = (evt, popup) => {
+  if (evt.target === evt.currentTarget) {
+    popupClose(popup)
   }
 }
 
@@ -73,10 +81,7 @@ const formSubmitHandler =  function(evt) {//объявление перемен�
   popupClose(editPopup);//вызов функции закрытия popup
 }
 
-//Функция открытия формы добавления карточки-----------------------------------------------------------------------------------
-const openCardPopup = function() {//объявление переменной
-  popupOpen(cardPopup);//добавить класс в popup
-}
+
 
 //функция инициализации карточки-----------------------------------------------------------------------------------
 const getCardElement = function(name, link) {
@@ -102,9 +107,7 @@ const getCardElement = function(name, link) {
     popupFullImage.alt = cardTitle.textContent
     imageCaption.textContent = cardTitle.textContent;//запись названия карточки в подпись изображения в превью
   });
-  previewImageBtn.addEventListener('keydown', function(evt) {
-    closeKeyHandler(evt, imagePopup);
-  })
+
   return cardElement;// вернуть елемент
 }
 
@@ -121,21 +124,46 @@ const submitCardForm = function(evt) {// Объявление перемнной
   popupClose(cardPopup);//вызов функции закрытия popup добавления карточки
 }
 
+//Функция скрытия ошибок при закрытии popup---------------------------------------------------------------------------------
+const clearAllErrors = function() {
+  const fieldList = Array.from(document.querySelectorAll('.form__fieldset'));
+  fieldList.forEach((field) => {
+    const inputList = Array.from(field.querySelectorAll('.form__input'));
+    inputList.forEach((item) => {
+      hideInputError(field, item, 'form__input_type_error', 'form__input-error_active')
+    });
+  });
+}
 
-editBtn.addEventListener('click', function(){//Слушатель при нажании открыть popup изменения профиля
+// включение валидации
+enableValidation({
+  formSelector: '.form',
+  inputSelector: '.form__input',
+  submitButtonSelector: '.form__submit-btn',
+  inactiveButtonClass: 'form__submit-btn_disabled',
+  inputErrorClass: 'form__input_type_error',
+  errorClass: 'form__input-error_active'
+});
+
+editBtn.addEventListener('click', function() {//Слушатель при нажании открыть popup изменения профиля
   popupOpen(editPopup);//вызов функции открытия popup
   inputName.value = profileName.textContent;// Добавить имя в input при открытии
   inputJob.value = profileJob.textContent; // Добавить профессию в input при открытии
 });
 
-addBtn.addEventListener('click', openCardPopup);//Слушатель при нажании открыть popup добавления карточки
+
+addBtn.addEventListener('click', function() {
+  popupOpen(cardPopup);
+  addCardForm.reset();//функция очистки формы.
+});//Слушатель при нажании открыть popup добавления карточки
 
 closeEditBtn.addEventListener('click', function() {//Слушатель при нажании закрыть popup изменения профиля
+  clearAllErrors();
   popupClose(editPopup);//вызвать функцию закрытия popup
 });
 
 closeCardBtn.addEventListener('click', function() {//Слушатель при нажании закрыть popup добавления карточки
-  addCardForm.reset();//функция очистки формы. Добавил её сюда для того чтобы очищались поля если пользователь передумает добавлять карточку
+  clearAllErrors();
   popupClose(cardPopup);//вызвать функцию закрытия popup
 });
 
@@ -152,10 +180,28 @@ initialCards.forEach(function(item) {
   renderCard(item.name, item.link, cardList);
 });
 
-editBtn.addEventListener('keydown', function(evt) {
-  closeKeyHandler(evt, editPopup);
+
+window.addEventListener('keydown', function(evt) {
+  closePopupOnPressKey(evt, editPopup);
 });
 
-addBtn.addEventListener('keydown', function(evt) {
-  closeKeyHandler(evt, cardPopup);
+window.addEventListener('keydown', function(evt) {
+  closePopupOnPressKey(evt, cardPopup);
+});
+
+window.addEventListener('keydown', function(evt) {
+  closePopupOnPressKey(evt, imagePopup);
+});
+
+
+editPopup.addEventListener('mousedown', function(evt) {
+  closePopupOnOverlay(evt, editPopup);
+});
+
+cardPopup.addEventListener('mousedown', function(evt) {
+  closePopupOnOverlay(evt, cardPopup);
+});
+
+imagePopup.addEventListener('mousedown', function(evt) {
+  closePopupOnOverlay(evt, imagePopup);
 });
