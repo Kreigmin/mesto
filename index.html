@@ -34,7 +34,7 @@
       <p class="footer__copyright">&copy; 2020 Mesto Russia</p>
     </footer>
   </div>
-  <div class="popup popup_bg-alfa_dark edit-profile-popup"><!--edit-popup-->
+  <div class="popup popup_bg-alfa_dark popup_type_edit"><!--edit-popup-->
     <div class="popup__container">
       <button class="close-btn close-edit-popup" type="button" aria-label="Закрыть"></button>
       <form class="form profileChangeForm" name="profileChangeForm" novalidate>
@@ -48,12 +48,12 @@
             <input type="text" class="form__input form__input_job_value" id="about-me-input" name="profileJob" value="" autocomplete="off" placeholder="О себе" minlength="2" maxlength="200" required>
           <span class="form__input-error about-me-input-error"></span>
           </div>
-          <button class="form__submit-btn" type="submit" aria-labelledby="Сохранить">Сохранить</button>
+          <button class="form__submit-btn" type="submit" aria-label="Сохранить">Сохранить</button>
         </fieldset>
       </form>
     </div>
   </div><!--/edit-popup-->
-  <div class="popup popup_bg-alfa_dark add-card-popup"><!--add-popup-->
+  <div class="popup popup_bg-alfa_dark popup_type_card"><!--add-popup-->
     <div class="popup__container">
       <button class="close-btn close-card-popup" type="button" aria-label="Закрыть"></button>
       <form class="form addCardForm" name="addCardForm" novalidate>
@@ -67,12 +67,12 @@
           <input type="url" class="form__input form__input_card-link_value" id="link-input" name="cardImage" value="" autocomplete="off" placeholder="Ссылка на картинку" required>
           <span class="form__input-error link-input-error"></span>
          </div>
-          <button class="form__submit-btn form__submit-btn_disabled" type="submit" aria-labelledby="Сохранить" disabled>Создать</button>
+          <button class="form__submit-btn form__submit-btn_disabled" type="submit" aria-label="Создать" disabled>Создать</button>
         </fieldset>
       </form>
     </div>
   </div><!--/add-popup-->
-  <div class="popup popup_bg-alfa_black open-image-popup"><!--image-popoup-->
+  <div class="popup popup_bg-alfa_black popup_type_image"><!--image-popoup-->
     <figure class="image-popup">
       <button class="close-btn close-image-popup" type="button" aria-label="Закрыть"></button>
       <img class="image-popup__full-img" src="./images/baikal.jfif" alt="#">
@@ -92,6 +92,7 @@
     </li>
   </template>
   <script src="./scripts/validate.js"></script>
+  <script src="./scripts/initial-cards.js"></script>
   <script src="./scripts/script.js"></script>
 </body>
 </html>

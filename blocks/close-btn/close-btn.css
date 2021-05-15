@@ -1,5 +1,5 @@
 .close-btn {
-  background-image: url(../../../images/close-icon.svg);
+  background-image: url(../../images/close-icon.svg);
   height: 40px;
   width: 40px;
   background-size: 48px 48px;
@@ -23,7 +23,7 @@
 
 @media (max-width: 520px) {
   .close-btn {
-    background-image: url(../../../images/close-icon320.svg);
+    background-image: url(../../images/close-icon320.svg);
     width: 26px;
     height: 26px;
     background-size: 38px 38px;
