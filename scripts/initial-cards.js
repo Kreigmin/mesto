@@ -24,3 +24,5 @@ const initialCards = [
     link: './images/red-square.jfif'
   }
 ];
+
+export default initialCards;
