@@ -1,5 +1,6 @@
 import  Card  from './Card.js';
 import initialCards from './initial-cards.js';
+import { validationConfig, FormValidator } from './FormValidator.js'
 
 
 //Объявление переменных 4 спринт-----------------------------------------------------------------------------------------------
@@ -23,16 +24,16 @@ const addCardForm = document.querySelector('.addCardForm');//выбор форм
 
 // const cardTemplate = document.querySelector('.card-template').content;//выбор контента шаблона карточки
 
-const validationConfig = {
-  currentPopupSelector: '.popup_opened',
-  formSelector: '.form',
-  inputSelector: '.form__input',
-  fieldsetSelector: '.form__fieldset',
-  submitButtonSelector: '.form__submit-btn',
-  inactiveButtonClass: 'form__submit-btn_disabled',
-  inputErrorClass: 'form__input_type_error',
-  errorClass: 'form__input-error_active'
-}
+// const validationConfig = {
+//   currentPopupSelector: '.popup_opened',
+//   formSelector: '.form',
+//   inputSelector: '.form__input',
+//   fieldsetSelector: '.form__fieldset',
+//   submitButtonSelector: '.form__submit-btn',
+//   inactiveButtonClass: 'form__submit-btn_disabled',
+//   inputErrorClass: 'form__input_type_error',
+//   errorClass: 'form__input-error_active'
+// }
 
 //Функция открытия popup--------------------------------------------------------------------------------------------------------
 const openPopup = function(button) {
@@ -96,21 +97,20 @@ const handleCardFormSubmit = function(evt, {
 
 
 
-// включение валидации
-enableValidation(validationConfig);
+
 
 editBtn.addEventListener('click', function() {//Слушатель при нажании открыть popup изменения профиля
   openPopup(editPopup);//вызов функции открытия popup
   inputName.value = profileName.textContent;// Добавить имя в input при открытии
   inputJob.value = profileJob.textContent; // Добавить профессию в input при открытии
-  clearAllErrors(validationConfig);
+  // clearAllErrors(validationConfig);
 });
 
 
 addBtn.addEventListener('click', function() {
   openPopup(cardPopup);
   addCardForm.reset();//функция очистки формы.
-  clearAllErrors(validationConfig);
+  // clearAllErrors(validationConfig);
 });//Слушатель при нажании открыть popup добавления карточки
 
 closeEditBtn.addEventListener('click', function() {//Слушатель при нажании закрыть popup изменения профиля
@@ -138,3 +138,12 @@ initialCards.forEach((item) => {
   const card = new Card(item.name, item.link);
   renderCard(card, cardList);
 });
+
+
+const kkk = Array.from(document.querySelectorAll('.form'));
+kkk.forEach((item) => {
+  const formValidaton = new FormValidator(validationConfig, item);
+  formValidaton.enableValidation()
+});
+
+
