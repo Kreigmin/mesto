@@ -1,11 +1,11 @@
 
 
-const imagePopup = document.querySelector('.popup_type_image');//выбор popup показа полного изображения карточки
+export const imagePopup = document.querySelector('.popup_type_image');//выбор popup показа полного изображения карточки
 const imageCaption = document.querySelector('.image-popup__caption');//выбор подписи изображения в popup полного изображения карточки
 const popupFullImage = document.querySelector('.image-popup__full-img');//выбор изображения в popup полного изображения карточки
-const closeImgPopupBtn = document.querySelector('.close-image-popup');//выбор кнопки закрытия popup полного изображения карточки
+export const closeImgPopupBtn = document.querySelector('.close-image-popup');//выбор кнопки закрытия popup полного изображения карточки
 
-class Card {
+export class Card {
   constructor(name, link) {
     this._title = name;
     this._image = link
@@ -44,10 +44,19 @@ class Card {
     popupFullImage.src = this._element.querySelector('.card__image').src;
     popupFullImage.alt = this._element.querySelector('.card__title').textContent;
     imageCaption.textContent = this._element.querySelector('.card__title').textContent;
+    document.addEventListener('keydown', (evt) => {
+      this._handleClosePopupOnPressKey(evt);
+    });
   }
 
   _handleClosePopup() {
     imagePopup.classList.remove('popup_opened');
+  }
+
+  _handleClosePopupOnPressKey(evt) {
+    if (evt.key === 'Escape') {
+      this._handleClosePopup();
+    }
   }
 
   _setEventListeners() {
@@ -61,13 +70,12 @@ class Card {
 
     this._element.querySelector('.card__full-img-btn').addEventListener('click', () => {
       this._handleOpenPopup();
+
     });
 
     closeImgPopupBtn.addEventListener('click', () => {
       this._handleClosePopup();
     });
   }
-
 }
 
-export default Card

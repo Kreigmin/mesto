@@ -75,6 +75,7 @@ export class FormValidator {
       });
       addBtn.addEventListener('click', () => {
         this._clearAllInputs(fieldset,inputSelector, inputErrorClass, errorClass);
+        this._toggleButtonState(inputList, buttonElement, inactiveButtonClass);
       });
     }
 

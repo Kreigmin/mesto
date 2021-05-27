@@ -1,4 +1,4 @@
-import  Card  from './Card.js';//импорт класса Card
+import {Card, closeImgPopupBtn, imagePopup} from './Card.js';//импорт класса Card
 import initialCards from './initial-cards.js';//импорт начального массива карточек
 import { FormValidator, editBtn, addBtn } from './FormValidator.js'//импорт класса FormValidator и кнопок отрытия форм
 
@@ -19,6 +19,8 @@ const closeCardBtn = document.querySelector('.close-card-popup')//выбор к�
 const inputPlaceName = document.querySelector('.form__input_card-name_value');//выбор поля названия карточки
 const inputPlaceImage = document.querySelector('.form__input_card-link_value');//выбор поля ссылки карточки
 const addCardForm = document.querySelector('.addCardForm');//выбор формы добавления карточки
+const kk = document.querySelectorAll('.card__full-img-btn');
+
 
 //объект настроек для валидации с классами и селекторами
 const validationConfig = {
@@ -73,21 +75,17 @@ const handleProfileFormSubmit =  function(evt) {
 }
 
 //Функция отправки формы добавления карточки---------------------------------------------------------------------------------
-const handleCardFormSubmit = function(evt, {
-  currentPopupSelector,
-  inputSelector,
-  submitButtonSelector,
-  inactiveButtonClass
-}) {
+const handleCardFormSubmit = function(evt) {
   evt.preventDefault();
-  const currentPopup = document.querySelector(currentPopupSelector);
-  const inputList = Array.from(currentPopup.querySelectorAll(inputSelector));
-  const buttonElement = currentPopup.querySelector(submitButtonSelector);
   const newCard = new Card(inputPlaceName.value, inputPlaceImage.value)
   renderCard(newCard, cardList);
   addCardForm.reset();
-  toggleButtonState(inputList, buttonElement, inactiveButtonClass);
   closePopup(cardPopup);
+}
+
+//функция добавления карточки в контейнер---------------------------------------------------------------------
+const renderCard = function(card, wrap) {
+  wrap.prepend(card.generateCard());
 }
 
 editBtn.addEventListener('click', function() {//Слушатель при нажании открыть popup изменения профиля
@@ -109,26 +107,25 @@ closeCardBtn.addEventListener('click', function() {//Слушатель при �
   closePopup(cardPopup);
 });
 
+
+
 //Слушатель при отправке формы выполнить функцию handleProfileFormSubmit
 profileFormElement.addEventListener('submit', handleProfileFormSubmit);
 
 addCardForm.addEventListener('submit', function(evt) {
-  handleCardFormSubmit(evt, validationConfig);
+  handleCardFormSubmit(evt);
 });//Слушатель при отправке формы выполнить функцию handleCardFormSubmit
 
-
-
 closePopupOnOverlay();
-
-//функция добавления карточки в контейнер---------------------------------------------------------------------
-const renderCard = function(card, wrap) {
-  wrap.prepend(card.generateCard());
-}
 
 //Добавление карточек
 initialCards.forEach((item) => {
   const card = new Card(item.name, item.link);
   renderCard(card, cardList);
+});
+
+closeImgPopupBtn.addEventListener('click', function() {
+  closePopup(imagePopup);
 });
 
 //Включение валидации форм
