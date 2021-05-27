@@ -1,15 +1,7 @@
-const validationConfig = {
-  currentPopupSelector: '.popup_opened',
-  formSelector: '.form',
-  inputSelector: '.form__input',
-  fieldsetSelector: '.form__fieldset',
-  submitButtonSelector: '.form__submit-btn',
-  inactiveButtonClass: 'form__submit-btn_disabled',
-  inputErrorClass: 'form__input_type_error',
-  errorClass: 'form__input-error_active'
-}
+export const editBtn = document.querySelector('.profile__edit-btn');// Выбор кнопки редактирования
+export const addBtn = document.querySelector('.profile__add-btn');// Выбор кнопки добавления карточки
 
-class FormValidator {
+export class FormValidator {
   constructor(validationConfig, currentForm) {
     this._currentForm = currentForm;
     this._formSelector = validationConfig.formSelector;
@@ -21,14 +13,14 @@ class FormValidator {
     this._errorClass = validationConfig.errorClass
   }
 
-
+  //метод показа ошибки валидации-----------------------------------------------------------------------------------------
   _showInputError(fieldset, inputElement, errorMessage, inputErrorClass, errorClass)  {
     const errorElement = fieldset.querySelector(`.${inputElement.id}-error`);
     inputElement.classList.add(inputErrorClass);
     errorElement.textContent = errorMessage;
     errorElement.classList.add(errorClass);
   }
-
+  //метод скрытия ошибки валидации-----------------------------------------------------------------------------------------
   _hideInputError(fieldset, inputElement, inputErrorClass, errorClass) {
     const errorElement = fieldset.querySelector(`.${inputElement.id}-error`);
     inputElement.classList.remove(inputErrorClass);
@@ -41,7 +33,7 @@ class FormValidator {
       return !inputElement.validity.valid;
     });
   }
-
+  // метод проверки полей на валидность-----------------------------------------------------------------------------------------
   _checkInputValidity(fieldset, inputElement, inputErrorClass, errorClass)  {
     if (!inputElement.validity.valid) {
       this._showInputError(fieldset, inputElement, inputElement.validationMessage, inputErrorClass, errorClass);
@@ -50,6 +42,7 @@ class FormValidator {
     }
   }
 
+  //метод преключения кнопки submit-----------------------------------------------------------------------------------------
   _toggleButtonState(
     inputList,
     buttonElement,
@@ -62,7 +55,7 @@ class FormValidator {
         buttonElement.removeAttribute('disabled');
       }
     }
-
+  // метод добавления слушателей-----------------------------------------------------------------------------------------
   _setEventListeners(fieldset,
     submitButtonSelector,
     inputSelector,
@@ -77,29 +70,38 @@ class FormValidator {
           this._toggleButtonState(inputList, buttonElement, inactiveButtonClass);
         });
       });
+      editBtn.addEventListener('click', () => {
+        this._clearAllInputs(fieldset,inputSelector, inputErrorClass, errorClass);
+      });
+      addBtn.addEventListener('click', () => {
+        this._clearAllInputs(fieldset,inputSelector, inputErrorClass, errorClass);
+      });
     }
 
-
-
+  //метод очистки полей при открытии формы-----------------------------------------------------------------------------------------
+  _clearAllInputs(fieldset, inputSelector, inputErrorClass, errorClass) {
+    const inputList = fieldset.querySelectorAll(inputSelector);
+    inputList.forEach((item) => {
+      this._hideInputError(fieldset, item, inputErrorClass, errorClass);
+    });
+  }
+  //метод включения валидации-----------------------------------------------------------------------------------------
   enableValidation() {
     const form = this._currentForm;
-      form.addEventListener('submit', function (evt) {
-        evt.preventDefault();
-      });
-      const fieldset = form.querySelector(this._fieldsetSelector);
-      this._setEventListeners(
-        fieldset,
-        this._submitButtonSelector,
-        this._inputSelector,
-        this._inactiveButtonClass,
-        this._inputErrorClass,
-        this._errorClass)
-
+    form.addEventListener('submit', function (evt) {
+      evt.preventDefault();
+    });
+    const fieldset = form.querySelector(this._fieldsetSelector);
+    this._setEventListeners(
+      fieldset,
+      this._submitButtonSelector,
+      this._inputSelector,
+      this._inactiveButtonClass,
+      this._inputErrorClass,
+      this._errorClass);
   }
-
 }
 
-export { validationConfig, FormValidator };
 
 
 
