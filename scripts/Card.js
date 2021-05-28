@@ -1,4 +1,4 @@
-
+import {openPopup} from './script.js';
 
 export const imagePopup = document.querySelector('.popup_type_image');//выбор popup показа полного изображения карточки
 const imageCaption = document.querySelector('.image-popup__caption');//выбор подписи изображения в popup полного изображения карточки
@@ -40,26 +40,6 @@ export class Card {
     listItem.remove();
   }
 
-  _handleOpenPopup() {
-    imagePopup.classList.add('popup_opened');
-    popupFullImage.src = this._element.querySelector('.card__image').src;
-    popupFullImage.alt = this._element.querySelector('.card__title').textContent;
-    imageCaption.textContent = this._element.querySelector('.card__title').textContent;
-    document.addEventListener('keydown', (evt) => {
-      this._handleClosePopupOnPressKey(evt);
-    });
-  }
-
-  _handleClosePopup() {
-    imagePopup.classList.remove('popup_opened');
-  }
-
-  _handleClosePopupOnPressKey(evt) {
-    if (evt.key === 'Escape') {
-      this._handleClosePopup();
-    }
-  }
-
   _setEventListeners() {
     this._element.querySelector('.card__like').addEventListener('click', (evt) => {
       this._handleLikeClick(evt);
@@ -70,12 +50,10 @@ export class Card {
     });
 
     this._element.querySelector('.card__full-img-btn').addEventListener('click', () => {
-      this._handleOpenPopup();
-
-    });
-
-    closeImgPopupBtn.addEventListener('click', () => {
-      this._handleClosePopup();
+      openPopup(imagePopup);
+      popupFullImage.src = this._element.querySelector('.card__image').src;
+      popupFullImage.alt = this._element.querySelector('.card__title').textContent;
+      imageCaption.textContent = this._element.querySelector('.card__title').textContent;
     });
   }
 }

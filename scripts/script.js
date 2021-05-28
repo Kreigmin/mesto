@@ -35,7 +35,7 @@ const validationConfig = {
 }
 
 //Функция открытия popup--------------------------------------------------------------------------------------------------------
-const openPopup = function(popup) {
+export const openPopup = function(popup) {
   popup.classList.add('popup_opened');
   document.addEventListener('keydown', closePopupOnPressKey);
 }
@@ -77,7 +77,7 @@ const handleProfileFormSubmit =  function(evt) {
 //Функция отправки формы добавления карточки---------------------------------------------------------------------------------
 const handleCardFormSubmit = function(evt) {
   evt.preventDefault();
-  const newCard = new Card(inputPlaceName.value, inputPlaceImage.value)
+  const newCard = new Card(inputPlaceName.value, inputPlaceImage.value, '.card-template')
   renderCard(newCard, cardList);
   addCardForm.reset();
   closePopup(cardPopup);
@@ -134,3 +134,4 @@ forms.forEach((item) => {
   const formValidaton = new FormValidator(validationConfig, item);
   formValidaton.enableValidation();
 });
+
