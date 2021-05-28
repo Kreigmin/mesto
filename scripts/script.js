@@ -35,14 +35,14 @@ const validationConfig = {
 }
 
 //Функция открытия popup--------------------------------------------------------------------------------------------------------
-const openPopup = function(button) {
-  button.classList.add('popup_opened');
+const openPopup = function(popup) {
+  popup.classList.add('popup_opened');
   document.addEventListener('keydown', closePopupOnPressKey);
 }
 
 //Функция закрытия popup--------------------------------------------------------------------------------------------------------
-const closePopup = function(button) {
-  button.classList.remove('popup_opened');
+const closePopup = function(popup) {
+  popup.classList.remove('popup_opened');
   document.removeEventListener('keydown', closePopupOnPressKey);
 }
 
