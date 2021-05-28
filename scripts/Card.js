@@ -23,8 +23,9 @@ export class Card {
 
   generateCard() {
     this._element = this._getTemplate();
-    this._element.querySelector('.card__image').src = this._image;
-    this._element.querySelector('.card__image').alt = this._title;
+    const cardImage = this._element.querySelector('.card__image');
+    cardImage.src = this._image;
+    cardImage.alt = this._title;
     this._element.querySelector('.card__title').textContent = this._title;
 
     this._setEventListeners();
@@ -50,10 +51,11 @@ export class Card {
     });
 
     this._element.querySelector('.card__full-img-btn').addEventListener('click', () => {
+      const cardTitle = this._element.querySelector('.card__title');
       openPopup(imagePopup);
       popupFullImage.src = this._element.querySelector('.card__image').src;
-      popupFullImage.alt = this._element.querySelector('.card__title').textContent;
-      imageCaption.textContent = this._element.querySelector('.card__title').textContent;
+      popupFullImage.alt = cardTitle.textContent;
+      imageCaption.textContent = cardTitle.textContent;
     });
   }
 }
