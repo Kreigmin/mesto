@@ -6,14 +6,15 @@ const popupFullImage = document.querySelector('.image-popup__full-img');//выб
 export const closeImgPopupBtn = document.querySelector('.close-image-popup');//выбор кнопки закрытия popup полного изображения карточки
 
 export class Card {
-  constructor(name, link) {
+  constructor(name, link, templateSelector) {
+    this._templateSelector = templateSelector;
     this._title = name;
     this._image = link
   }
 
   _getTemplate() {
     const cardElement = document
-    .querySelector('.card-template')
+    .querySelector(this._templateSelector)
     .content
     .querySelector('.card')
     .cloneNode(true);

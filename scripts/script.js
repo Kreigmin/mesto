@@ -120,7 +120,7 @@ closePopupOnOverlay();
 
 //Добавление карточек
 initialCards.forEach((item) => {
-  const card = new Card(item.name, item.link);
+  const card = new Card(item.name, item.link, '.card-template');
   renderCard(card, cardList);
 });
 
