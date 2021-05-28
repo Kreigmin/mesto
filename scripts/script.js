@@ -19,7 +19,6 @@ const closeCardBtn = document.querySelector('.close-card-popup')//выбор к�
 const inputPlaceName = document.querySelector('.form__input_card-name_value');//выбор поля названия карточки
 const inputPlaceImage = document.querySelector('.form__input_card-link_value');//выбор поля ссылки карточки
 const addCardForm = document.querySelector('.addCardForm');//выбор формы добавления карточки
-const kk = document.querySelectorAll('.card__full-img-btn');
 
 
 //объект настроек для валидации с классами и селекторами
@@ -107,8 +106,6 @@ closeCardBtn.addEventListener('click', function() {//Слушатель при �
   closePopup(cardPopup);
 });
 
-
-
 //Слушатель при отправке формы выполнить функцию handleProfileFormSubmit
 profileFormElement.addEventListener('submit', handleProfileFormSubmit);
 
@@ -131,7 +128,7 @@ closeImgPopupBtn.addEventListener('click', function() {
 //Включение валидации форм
 const forms = Array.from(document.querySelectorAll('.form'));
 forms.forEach((item) => {
-  const formValidaton = new FormValidator(validationConfig, item);
-  formValidaton.enableValidation();
+  const formValidation = new FormValidator(validationConfig, item);
+  formValidation.enableValidation();
 });
 
