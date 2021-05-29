@@ -53,12 +53,11 @@ const closePopupOnPressKey = function(evt) {
   }
 }
 
-//Функция закрытия popup по нажатию на overlay-------------------------------------------------------------------------------------
-const closePopupOnOverlay = () => {
+const closePopupOnOverlayAndButton = () => {
   const popups = document.querySelectorAll('.popup');
   popups.forEach((popup) => {
-    popup.addEventListener('mousedown', (evt) => {
-      if (evt.target.classList.contains('popup_opened')) {
+    popup.addEventListener('click', (evt) => {
+      if (evt.target.classList.contains('popup_opened') || evt.target.classList.contains('popup__close')) {
         closePopup(popup);
       }
     });
@@ -98,14 +97,6 @@ addBtn.addEventListener('click', function() {//Слушатель при наж�
   addCardForm.reset();
 });
 
-closeEditBtn.addEventListener('click', function() {//Слушатель при нажании закрыть popup изменения профиля
-  closePopup(editPopup);
-});
-
-closeCardBtn.addEventListener('click', function() {//Слушатель при нажании закрыть popup добавления карточки
-  closePopup(cardPopup);
-});
-
 //Слушатель при отправке формы выполнить функцию handleProfileFormSubmit
 profileFormElement.addEventListener('submit', handleProfileFormSubmit);
 
@@ -113,16 +104,14 @@ addCardForm.addEventListener('submit', function(evt) {
   handleCardFormSubmit(evt);
 });//Слушатель при отправке формы выполнить функцию handleCardFormSubmit
 
-closePopupOnOverlay();
+
+//Вызов функции закрытия popup по нажатию на кнопку и оверлей
+closePopupOnOverlayAndButton();
 
 //Добавление карточек
 initialCards.forEach((item) => {
   const card = new Card(item.name, item.link, '.card-template');
   renderCard(card, cardList);
-});
-
-closeImgPopupBtn.addEventListener('click', function() {
-  closePopup(imagePopup);
 });
 
 //Включение валидации форм
