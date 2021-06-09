@@ -1,4 +1,5 @@
-import {Card, closeImgPopupBtn, imagePopup} from './Card.js';//импорт класса Card
+import Card from './Card.js';//импорт класса Card
+import Section from './Section.js';
 import initialCards from './initial-cards.js';//импорт начального массива карточек
 import { FormValidator, editBtn, addBtn } from './FormValidator.js'//импорт класса FormValidator и кнопок отрытия форм
 
@@ -75,15 +76,16 @@ const handleProfileFormSubmit =  function(evt) {
 //Функция отправки формы добавления карточки---------------------------------------------------------------------------------
 const handleCardFormSubmit = function(evt) {
   evt.preventDefault();
-  const newCard = new Card(inputPlaceName.value, inputPlaceImage.value, '.card-template')
-  renderCard(newCard, cardList);
+  const aaa = [{name: inputPlaceName.value, link: inputPlaceImage.value}];
+  const newCard = new Section({items: aaa,
+    renderer: (item) => {
+      const card = new Card(item.name, item.link, '.card-template');
+      const cardElement = card.generateCard();
+      newCard.addItem(cardElement);
+    }}, '.cards__list');
+  newCard.renderItems();
   addCardForm.reset();
   closePopup(cardPopup);
-}
-
-//функция добавления карточки в контейнер---------------------------------------------------------------------
-const renderCard = function(card, wrap) {
-  wrap.prepend(card.generateCard());
 }
 
 editBtn.addEventListener('click', function() {//Слушатель при нажании открыть popup изменения профиля
@@ -108,11 +110,13 @@ addCardForm.addEventListener('submit', function(evt) {
 //Вызов функции закрытия popup по нажатию на кнопку и оверлей
 closePopupOnOverlayAndButton();
 
-//Добавление карточек
-initialCards.forEach((item) => {
-  const card = new Card(item.name, item.link, '.card-template');
-  renderCard(card, cardList);
-});
+//Добавление начальных карточек карточек
+const initialCardList = new Section({items: initialCards,
+  renderer: (item) => {
+    const card = new Card(item.name, item.link, '.card-template');
+    const cardElement = card.generateCard();
+    initialCardList.addItem(cardElement);
+  }}, '.cards__list');
 
 //Включение валидации форм
 const forms = Array.from(document.querySelectorAll('.form'));
@@ -121,3 +125,4 @@ forms.forEach((item) => {
   formValidation.enableValidation();
 });
 
+initialCardList.renderItems();

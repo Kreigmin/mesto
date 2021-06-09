@@ -3,13 +3,12 @@ import {openPopup} from './script.js';
 export const imagePopup = document.querySelector('.popup_type_image');//выбор popup показа полного изображения карточки
 const imageCaption = document.querySelector('.image-popup__caption');//выбор подписи изображения в popup полного изображения карточки
 const popupFullImage = document.querySelector('.image-popup__full-img');//выбор изображения в popup полного изображения карточки
-export const closeImgPopupBtn = document.querySelector('.close-image-popup');//выбор кнопки закрытия popup полного изображения карточки
 
-export class Card {
+export default class Card {
   constructor(name, link, templateSelector) {
     this._templateSelector = templateSelector;
     this._title = name;
-    this._image = link
+    this._image = link;
   }
 
   _getTemplate() {
