@@ -1,5 +1,6 @@
 import Card from './Card.js';//импорт класса Card
 import Section from './Section.js';
+import Popup from './Popup.js';
 import initialCards from './initial-cards.js';//импорт начального массива карточек
 import { FormValidator, editBtn, addBtn } from './FormValidator.js'//импорт класса FormValidator и кнопок отрытия форм
 
@@ -35,42 +36,53 @@ const validationConfig = {
 }
 
 //Функция открытия popup--------------------------------------------------------------------------------------------------------
-export const openPopup = function(popup) {
-  popup.classList.add('popup_opened');
-  document.addEventListener('keydown', closePopupOnPressKey);
-}
+// export const openPopup = function(popup) {
+//   popup.classList.add('popup_opened');
+//   document.addEventListener('keydown', closePopupOnPressKey);
+// }
 
-//Функция закрытия popup--------------------------------------------------------------------------------------------------------
-const closePopup = function(popup) {
-  popup.classList.remove('popup_opened');
-  document.removeEventListener('keydown', closePopupOnPressKey);
-}
+// //Функция закрытия popup--------------------------------------------------------------------------------------------------------
+// const closePopup = function(popup) {
+//   popup.classList.remove('popup_opened');
+//   document.removeEventListener('keydown', closePopupOnPressKey);
+// }
 
-//Функция закрытия popup по кнопке Escape-------------------------------------------------------------------------------------
-const closePopupOnPressKey = function(evt) {
-  const currentPopup =  document.querySelector('.popup_opened')
-  if (evt.key === 'Escape') {
-    closePopup(currentPopup);
-  }
-}
+// //Функция закрытия popup по кнопке Escape-------------------------------------------------------------------------------------
+// const closePopupOnPressKey = function(evt) {
+//   const currentPopup =  document.querySelector('.popup_opened')
+//   if (evt.key === 'Escape') {
+//     console.log(evt)
+//     console.log(evt.key)
+//     closePopup(currentPopup);
+//   }
+// }
 
-const closePopupOnOverlayAndButton = () => {
-  const popups = document.querySelectorAll('.popup');
-  popups.forEach((popup) => {
-    popup.addEventListener('click', (evt) => {
-      if (evt.target.classList.contains('popup_opened') || evt.target.classList.contains('popup__close')) {
-        closePopup(popup);
-      }
-    });
-  });
-}
+// const closePopupOnOverlayAndButton = () => {
+//   const popups = document.querySelectorAll('.popup');
+//   popups.forEach((popup) => {
+//     popup.addEventListener('click', (evt) => {
+//       if (evt.target.classList.contains('popup_opened') || evt.target.classList.contains('popup__close')) {
+//         closePopup(popup);
+//       }
+//     });
+//   });
+// }
+
+const edPopup = new Popup('.popup_type_edit');
+const adPopup = new Popup('.popup_type_card');
+edPopup.setEventListeners();
+adPopup.setEventListeners();
+// closeEditBtn.addEventListener('click', () => {
+//   edPopup.close();
+// })
+
 
 //Функция отправки формы изменения профиля-------------------------------------------------------------------------------------
 const handleProfileFormSubmit =  function(evt) {
   evt.preventDefault();
   profileName.textContent = inputName.value;
   profileJob.textContent = inputJob.value;
-  closePopup(editPopup);
+  // closePopup(editPopup);
 }
 
 //Функция отправки формы добавления карточки---------------------------------------------------------------------------------
@@ -85,17 +97,19 @@ const handleCardFormSubmit = function(evt) {
     }}, '.cards__list');
   newCard.renderItems();
   addCardForm.reset();
-  closePopup(cardPopup);
+  // closePopup(cardPopup);
 }
 
 editBtn.addEventListener('click', function() {//Слушатель при нажании открыть popup изменения профиля
-  openPopup(editPopup);
+  edPopup.open();
+  // openPopup(editPopup);
   inputName.value = profileName.textContent;
   inputJob.value = profileJob.textContent;
 });
 
 addBtn.addEventListener('click', function() {//Слушатель при нажании открыть popup добавления карточки
-  openPopup(cardPopup);
+  adPopup.open()
+  // openPopup(cardPopup);
   addCardForm.reset();
 });
 
@@ -108,7 +122,7 @@ addCardForm.addEventListener('submit', function(evt) {
 
 
 //Вызов функции закрытия popup по нажатию на кнопку и оверлей
-closePopupOnOverlayAndButton();
+// closePopupOnOverlayAndButton();
 
 //Добавление начальных карточек карточек
 const initialCardList = new Section({items: initialCards,
@@ -126,3 +140,5 @@ forms.forEach((item) => {
 });
 
 initialCardList.renderItems();
+
+

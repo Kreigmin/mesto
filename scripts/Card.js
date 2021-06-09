@@ -1,4 +1,4 @@
-import {openPopup} from './script.js';
+// import {openPopup} from './script.js';
 
 export const imagePopup = document.querySelector('.popup_type_image');//выбор popup показа полного изображения карточки
 const imageCaption = document.querySelector('.image-popup__caption');//выбор подписи изображения в popup полного изображения карточки
