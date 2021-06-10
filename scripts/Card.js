@@ -4,10 +4,11 @@
 // export const popupFullImage = document.querySelector('.image-popup__full-img');//выбор изображения в popup полного изображения карточки
 
 export default class Card {
-  constructor(name, link, templateSelector) {
+  constructor({name, link, handleCardClick}, templateSelector) {
     this._templateSelector = templateSelector;
     this._title = name;
     this._image = link;
+    this._handleCardClick = handleCardClick;
   }
 
   _getTemplate() {
@@ -48,13 +49,9 @@ export default class Card {
       this._handleDeleteCardClick();
     });
 
-    // this._element.querySelector('.card__full-img-btn').addEventListener('click', () => {
-    //   const cardTitle = this._element.querySelector('.card__title');
-    //   openPopup(imagePopup);
-    //   popupFullImage.src = this._element.querySelector('.card__image').src;
-    //   popupFullImage.alt = cardTitle.textContent;
-    //   imageCaption.textContent = cardTitle.textContent;
-    // });
+    this._element.querySelector('.card__full-img-btn').addEventListener('click', () => {
+      this._handleCardClick(this._element);
+    });
   }
 }
 

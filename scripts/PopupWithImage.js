@@ -6,19 +6,17 @@ export const popupFullImage = document.querySelector('.image-popup__full-img');/
 
 
 export default class PopupWithImage extends Popup {
-  constructor(popupSelector) {
+  constructor(popupSelector, card) {
     super(popupSelector);
+    this._card = card;
   }
 
   open() {
     super.open();
-    const cardTitle = document.querySelector('.card__title');
-    popupFullImage.src = document.querySelector('.card__image').src;
+    console.log(this._card);
+    const cardTitle = this._card.querySelector('.card__title');
+    popupFullImage.src = this._card.querySelector('.card__image').src;
     popupFullImage.alt = cardTitle.textContent;
     imageCaption.textContent = cardTitle.textContent;
   }
 }
-
-// popupFullImage.src = this._element.querySelector('.card__image').src;
-// popupFullImage.alt = cardTitle.textContent;
-// imageCaption.textContent = cardTitle.textContent;

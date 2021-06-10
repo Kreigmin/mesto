@@ -86,15 +86,22 @@ const handleProfileFormSubmit =  function(evt) {
   // closePopup(editPopup);
 }
 
+// Функция колбэк для открытия превью карточки
+const handleCardClick = (item) => {
+  const fullImagePopup = new PopupWithImage('.popup_type_image', item);
+  fullImagePopup.open();
+  fullImagePopup.setEventListeners();
+}
+
 //Функция отправки формы добавления карточки---------------------------------------------------------------------------------
 const handleCardFormSubmit = function(evt) {
   evt.preventDefault();
   const aaa = [{name: inputPlaceName.value, link: inputPlaceImage.value}];
   const newCard = new Section({items: aaa,
     renderer: (item) => {
-      const card = new Card(item.name, item.link, '.card-template');
+      const card = new Card({name: item.name, link: item.link, handleCardClick: handleCardClick}, '.card-template');
       const cardElement = card.generateCard();
-      newCard.addItem(cardElement);
+      initialCardList.addItem(cardElement);
     }}, '.cards__list');
   newCard.renderItems();
   addCardForm.reset();
@@ -128,10 +135,12 @@ addCardForm.addEventListener('submit', function(evt) {
 //Добавление начальных карточек карточек
 const initialCardList = new Section({items: initialCards,
   renderer: (item) => {
-    const card = new Card(item.name, item.link, '.card-template');
+    const card = new Card({name: item.name, link: item.link, handleCardClick: handleCardClick}, '.card-template');
     const cardElement = card.generateCard();
     initialCardList.addItem(cardElement);
   }}, '.cards__list');
+
+
 
 //Включение валидации форм
 const forms = Array.from(document.querySelectorAll('.form'));
@@ -143,11 +152,11 @@ forms.forEach((item) => {
 initialCardList.renderItems();
 
 
-document.querySelector('.card__full-img-btn').addEventListener('click', () => {
-  const fullImagePopup = new PopupWithImage('.popup_type_image');
-  fullImagePopup.open();
-  fullImagePopup.setEventListeners();
-});
+// document.querySelector('.card__full-img-btn').addEventListener('click', () => {
+//   const fullImagePopup = new PopupWithImage('.popup_type_image');
+//   fullImagePopup.open();
+//   fullImagePopup.setEventListeners();
+// });
 // this._element.querySelector('.card__full-img-btn').addEventListener('click', () => {
 //   const cardTitle = this._element.querySelector('.card__title');
 //   openPopup(imagePopup);
