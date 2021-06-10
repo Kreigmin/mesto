@@ -1,6 +1,7 @@
 import Card from './Card.js';//импорт класса Card
 import Section from './Section.js';
 import Popup from './Popup.js';
+import PopupWithImage from './PopupWithImage.js';
 import initialCards from './initial-cards.js';//импорт начального массива карточек
 import { FormValidator, editBtn, addBtn } from './FormValidator.js'//импорт класса FormValidator и кнопок отрытия форм
 
@@ -142,3 +143,15 @@ forms.forEach((item) => {
 initialCardList.renderItems();
 
 
+document.querySelector('.card__full-img-btn').addEventListener('click', () => {
+  const fullImagePopup = new PopupWithImage('.popup_type_image');
+  fullImagePopup.open();
+  fullImagePopup.setEventListeners();
+});
+// this._element.querySelector('.card__full-img-btn').addEventListener('click', () => {
+//   const cardTitle = this._element.querySelector('.card__title');
+//   openPopup(imagePopup);
+//   popupFullImage.src = this._element.querySelector('.card__image').src;
+//   popupFullImage.alt = cardTitle.textContent;
+//   imageCaption.textContent = cardTitle.textContent;
+// });

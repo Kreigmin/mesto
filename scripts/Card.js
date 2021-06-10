@@ -1,8 +1,7 @@
-// import {openPopup} from './script.js';
 
-export const imagePopup = document.querySelector('.popup_type_image');//выбор popup показа полного изображения карточки
-const imageCaption = document.querySelector('.image-popup__caption');//выбор подписи изображения в popup полного изображения карточки
-const popupFullImage = document.querySelector('.image-popup__full-img');//выбор изображения в popup полного изображения карточки
+// export const imagePopup = document.querySelector('.popup_type_image');//выбор popup показа полного изображения карточки
+// export const imageCaption = document.querySelector('.image-popup__caption');//выбор подписи изображения в popup полного изображения карточки
+// export const popupFullImage = document.querySelector('.image-popup__full-img');//выбор изображения в popup полного изображения карточки
 
 export default class Card {
   constructor(name, link, templateSelector) {
@@ -49,13 +48,13 @@ export default class Card {
       this._handleDeleteCardClick();
     });
 
-    this._element.querySelector('.card__full-img-btn').addEventListener('click', () => {
-      const cardTitle = this._element.querySelector('.card__title');
-      openPopup(imagePopup);
-      popupFullImage.src = this._element.querySelector('.card__image').src;
-      popupFullImage.alt = cardTitle.textContent;
-      imageCaption.textContent = cardTitle.textContent;
-    });
+    // this._element.querySelector('.card__full-img-btn').addEventListener('click', () => {
+    //   const cardTitle = this._element.querySelector('.card__title');
+    //   openPopup(imagePopup);
+    //   popupFullImage.src = this._element.querySelector('.card__image').src;
+    //   popupFullImage.alt = cardTitle.textContent;
+    //   imageCaption.textContent = cardTitle.textContent;
+    // });
   }
 }
 
