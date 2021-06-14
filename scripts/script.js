@@ -2,6 +2,7 @@ import Card from './Card.js';//импорт класса Card
 import Section from './Section.js';
 import Popup from './Popup.js';
 import PopupWithImage from './PopupWithImage.js';
+import PopupWithForm from './PopupWithForm.js';
 import initialCards from './initial-cards.js';//импорт начального массива карточек
 import { FormValidator, editBtn, addBtn } from './FormValidator.js'//импорт класса FormValidator и кнопок отрытия форм
 
@@ -22,6 +23,8 @@ const closeCardBtn = document.querySelector('.close-card-popup')//выбор к�
 const inputPlaceName = document.querySelector('.form__input_card-name_value');//выбор поля названия карточки
 const inputPlaceImage = document.querySelector('.form__input_card-link_value');//выбор поля ссылки карточки
 const addCardForm = document.querySelector('.addCardForm');//выбор формы добавления карточки
+const addPopupSelector = '.popup_type_card';
+const editPopupSelector = '.popup_type_edit';
 
 
 //объект настроек для валидации с классами и селекторами
@@ -36,65 +39,17 @@ const validationConfig = {
   errorClass: 'form__input-error_active'
 }
 
-//Функция открытия popup--------------------------------------------------------------------------------------------------------
-// export const openPopup = function(popup) {
-//   popup.classList.add('popup_opened');
-//   document.addEventListener('keydown', closePopupOnPressKey);
-// }
-
-// //Функция закрытия popup--------------------------------------------------------------------------------------------------------
-// const closePopup = function(popup) {
-//   popup.classList.remove('popup_opened');
-//   document.removeEventListener('keydown', closePopupOnPressKey);
-// }
-
-// //Функция закрытия popup по кнопке Escape-------------------------------------------------------------------------------------
-// const closePopupOnPressKey = function(evt) {
-//   const currentPopup =  document.querySelector('.popup_opened')
-//   if (evt.key === 'Escape') {
-//     console.log(evt)
-//     console.log(evt.key)
-//     closePopup(currentPopup);
-//   }
-// }
-
-// const closePopupOnOverlayAndButton = () => {
-//   const popups = document.querySelectorAll('.popup');
-//   popups.forEach((popup) => {
-//     popup.addEventListener('click', (evt) => {
-//       if (evt.target.classList.contains('popup_opened') || evt.target.classList.contains('popup__close')) {
-//         closePopup(popup);
-//       }
-//     });
-//   });
-// }
-
-const edPopup = new Popup('.popup_type_edit');
-const adPopup = new Popup('.popup_type_card');
-edPopup.setEventListeners();
-adPopup.setEventListeners();
-// closeEditBtn.addEventListener('click', () => {
-//   edPopup.close();
-// })
-
-
-//Функция отправки формы изменения профиля-------------------------------------------------------------------------------------
-const handleProfileFormSubmit =  function(evt) {
+const lala = new PopupWithForm(editPopupSelector,
+(evt) => {
   evt.preventDefault();
   profileName.textContent = inputName.value;
   profileJob.textContent = inputJob.value;
-  // closePopup(editPopup);
-}
+  lala.close();
+});
+lala.setEventListeners();
 
-// Функция колбэк для открытия превью карточки
-const handleCardClick = (item) => {
-  const fullImagePopup = new PopupWithImage('.popup_type_image', item);
-  fullImagePopup.open();
-  fullImagePopup.setEventListeners();
-}
-
-//Функция отправки формы добавления карточки---------------------------------------------------------------------------------
-const handleCardFormSubmit = function(evt) {
+const lalal = new PopupWithForm(addPopupSelector,
+(evt) => {
   evt.preventDefault();
   const aaa = [{name: inputPlaceName.value, link: inputPlaceImage.value}];
   const newCard = new Section({items: aaa,
@@ -104,33 +59,26 @@ const handleCardFormSubmit = function(evt) {
       initialCardList.addItem(cardElement);
     }}, '.cards__list');
   newCard.renderItems();
-  addCardForm.reset();
-  // closePopup(cardPopup);
+  lalal.close();
+});
+lalal.setEventListeners();
+
+// Функция колбэк для открытия превью карточки
+const handleCardClick = (item) => {
+  const fullImagePopup = new PopupWithImage('.popup_type_image', item);
+  fullImagePopup.open();
+  fullImagePopup.setEventListeners();
 }
 
 editBtn.addEventListener('click', function() {//Слушатель при нажании открыть popup изменения профиля
-  edPopup.open();
-  // openPopup(editPopup);
+  lala.open();
   inputName.value = profileName.textContent;
   inputJob.value = profileJob.textContent;
 });
 
 addBtn.addEventListener('click', function() {//Слушатель при нажании открыть popup добавления карточки
-  adPopup.open()
-  // openPopup(cardPopup);
-  addCardForm.reset();
+  lalal.open()
 });
-
-//Слушатель при отправке формы выполнить функцию handleProfileFormSubmit
-profileFormElement.addEventListener('submit', handleProfileFormSubmit);
-
-addCardForm.addEventListener('submit', function(evt) {
-  handleCardFormSubmit(evt);
-});//Слушатель при отправке формы выполнить функцию handleCardFormSubmit
-
-
-//Вызов функции закрытия popup по нажатию на кнопку и оверлей
-// closePopupOnOverlayAndButton();
 
 //Добавление начальных карточек карточек
 const initialCardList = new Section({items: initialCards,
@@ -140,8 +88,6 @@ const initialCardList = new Section({items: initialCards,
     initialCardList.addItem(cardElement);
   }}, '.cards__list');
 
-
-
 //Включение валидации форм
 const forms = Array.from(document.querySelectorAll('.form'));
 forms.forEach((item) => {
@@ -150,17 +96,3 @@ forms.forEach((item) => {
 });
 
 initialCardList.renderItems();
-
-
-// document.querySelector('.card__full-img-btn').addEventListener('click', () => {
-//   const fullImagePopup = new PopupWithImage('.popup_type_image');
-//   fullImagePopup.open();
-//   fullImagePopup.setEventListeners();
-// });
-// this._element.querySelector('.card__full-img-btn').addEventListener('click', () => {
-//   const cardTitle = this._element.querySelector('.card__title');
-//   openPopup(imagePopup);
-//   popupFullImage.src = this._element.querySelector('.card__image').src;
-//   popupFullImage.alt = cardTitle.textContent;
-//   imageCaption.textContent = cardTitle.textContent;
-// });

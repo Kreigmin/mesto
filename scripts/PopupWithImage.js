@@ -13,7 +13,6 @@ export default class PopupWithImage extends Popup {
 
   open() {
     super.open();
-    console.log(this._card);
     const cardTitle = this._card.querySelector('.card__title');
     popupFullImage.src = this._card.querySelector('.card__image').src;
     popupFullImage.alt = cardTitle.textContent;
