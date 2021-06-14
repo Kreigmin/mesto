@@ -1,7 +1,6 @@
-export const editBtn = document.querySelector('.profile__edit-btn');// Выбор кнопки редактирования
-export const addBtn = document.querySelector('.profile__add-btn');// Выбор кнопки добавления карточки
+import { editBtn, addBtn } from '../utils/constants.js';
 
-export class FormValidator {
+export default class FormValidator {
   constructor(validationConfig, currentForm) {
     this._currentForm = currentForm;
     this._formSelector = validationConfig.formSelector;
