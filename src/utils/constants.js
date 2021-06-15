@@ -4,6 +4,8 @@ export const inputPlaceName = document.querySelector('.form__input_card-name_val
 export const inputPlaceImage = document.querySelector('.form__input_card-link_value');//выбор поля ссылки карточки
 export const addPopupSelector = '.popup_type_card';
 export const editPopupSelector = '.popup_type_edit';
+export const addFormSelector = '.addCardForm';
+export const changeFormSelector = '.profileChangeForm';
 
 export const editBtn = document.querySelector('.profile__edit-btn');// Выбор кнопки редактирования
 export const addBtn = document.querySelector('.profile__add-btn');// Выбор кнопки добавления карточки

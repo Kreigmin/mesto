@@ -13,13 +13,15 @@ import {
   inputPlaceImage,
   addPopupSelector,
   editPopupSelector,
+  addFormSelector,
+  changeFormSelector,
   validationConfig,
   editBtn,
   addBtn,
   initialCards
 } from '../utils/constants.js'
 
-const editPopup = new PopupWithForm(editPopupSelector,
+const editPopup = new PopupWithForm(editPopupSelector, changeFormSelector,
 (evt) => {
   evt.preventDefault();
   info.setUserInfo(inputName.value, inputJob.value)
@@ -27,7 +29,7 @@ const editPopup = new PopupWithForm(editPopupSelector,
 });
 editPopup.setEventListeners();
 
-const addPopup = new PopupWithForm(addPopupSelector,
+const addPopup = new PopupWithForm(addPopupSelector, addFormSelector,
   (evt) => {
     evt.preventDefault();
     const card = new Card({name: inputPlaceName.value,
