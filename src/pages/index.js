@@ -28,18 +28,18 @@ const editPopup = new PopupWithForm(editPopupSelector,
 editPopup.setEventListeners();
 
 const addPopup = new PopupWithForm(addPopupSelector,
-(evt) => {
-  evt.preventDefault();
-  const aaa = [{name: inputPlaceName.value, link: inputPlaceImage.value}];
-  const newCard = new Section({items: aaa,
-    renderer: (item) => {
-      const card = new Card({name: item.name, link: item.link, handleCardClick: handleCardClick}, '.card-template');
-      const cardElement = card.generateCard();
-      initialCardList.addItem(cardElement);
-    }}, '.cards__list');
-  newCard.renderItems();
-  addPopup.close();
-});
+  (evt) => {
+    evt.preventDefault();
+    const card = new Card({name: inputPlaceName.value,
+      link: inputPlaceImage.value,
+      handleCardClick: handleCardClick},
+      '.card-template');
+    const cardElement = card.generateCard();
+    cardList.addItem(cardElement);
+    addPopup.close();
+  });
+
+
 addPopup.setEventListeners();
 
 
@@ -66,11 +66,11 @@ addBtn.addEventListener('click', function() {//Слушатель при наж�
 });
 
 //Добавление начальных карточек карточек
-const initialCardList = new Section({items: initialCards,
+const cardList = new Section({items: initialCards,
   renderer: (item) => {
     const card = new Card({name: item.name, link: item.link, handleCardClick: handleCardClick}, '.card-template');
     const cardElement = card.generateCard();
-    initialCardList.addItem(cardElement);
+    cardList.addItem(cardElement);
   }}, '.cards__list');
 
 //Включение валидации форм
@@ -80,4 +80,4 @@ forms.forEach((item) => {
   formValidation.enableValidation();
 });
 
-initialCardList.renderItems();
+cardList.renderItems();
