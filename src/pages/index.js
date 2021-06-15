@@ -32,29 +32,24 @@ editPopup.setEventListeners();
 const addPopup = new PopupWithForm(addPopupSelector, addFormSelector,
   (evt) => {
     evt.preventDefault();
-    const card = new Card({name: inputPlaceName.value,
-      link: inputPlaceImage.value,
-      handleCardClick: handleCardClick},
+    const data = {name: inputPlaceName.value, link: inputPlaceImage.value};
+    const card = new Card({name: data.name, link: data.link, handleCardClick: () =>
+      {
+        fullImagePopup.open(data.name, data.link);
+      }},
       '.card-template');
     const cardElement = card.generateCard();
     cardList.addItem(cardElement);
     addPopup.close();
   });
-
-
 addPopup.setEventListeners();
+
+const fullImagePopup = new PopupWithImage('.popup_type_image');
+fullImagePopup.setEventListeners();
+
 
 
 const info = new UserInfo({profileNameSelector: '.profile__name', profileJobSelector: '.profile__job'});
-
-
-
-// Функция колбэк для открытия превью карточки
-const handleCardClick = (item) => {
-  const fullImagePopup = new PopupWithImage('.popup_type_image', item);
-  fullImagePopup.open();
-  fullImagePopup.setEventListeners();
-}
 
 editBtn.addEventListener('click', function() {//Слушатель при нажании открыть popup изменения профиля
   editPopup.open();
@@ -70,7 +65,9 @@ addBtn.addEventListener('click', function() {//Слушатель при наж�
 //Добавление начальных карточек карточек
 const cardList = new Section({items: initialCards,
   renderer: (item) => {
-    const card = new Card({name: item.name, link: item.link, handleCardClick: handleCardClick}, '.card-template');
+    const card = new Card({name: item.name, link: item.link, handleCardClick: () => {
+      fullImagePopup.open(item.name, item.link);
+    }}, '.card-template');
     const cardElement = card.generateCard();
     cardList.addItem(cardElement);
   }}, '.cards__list');

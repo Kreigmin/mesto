@@ -45,7 +45,7 @@ export default class Card {
     });
 
     this._element.querySelector('.card__full-img-btn').addEventListener('click', () => {
-      this._handleCardClick(this._element);
+      this._handleCardClick();
     });
   }
 }
