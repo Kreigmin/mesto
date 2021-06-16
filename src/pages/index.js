@@ -15,6 +15,8 @@ import {
   editPopupSelector,
   addFormSelector,
   changeFormSelector,
+  addForm,
+  changeForm,
   validationConfig,
   editBtn,
   addBtn,
@@ -56,10 +58,12 @@ editBtn.addEventListener('click', function() {//Слушатель при наж
   const {name, job} =  info.getUserInfo();
   inputName.value = name.textContent;
   inputJob.value = job.textContent;
+  changeFormValidation.clearValidation(editBtn);
 });
 
 addBtn.addEventListener('click', function() {//Слушатель при нажании открыть popup добавления карточки
   addPopup.open()
+  addFormValidation.clearValidation(addBtn);
 });
 
 //Добавление начальных карточек карточек
@@ -72,11 +76,13 @@ const cardList = new Section({items: initialCards,
     cardList.addItem(cardElement);
   }}, '.cards__list');
 
-//Включение валидации форм
-const forms = Array.from(document.querySelectorAll('.form'));
-forms.forEach((item) => {
-  const formValidation = new FormValidator(validationConfig, item);
-  formValidation.enableValidation();
-});
 
 cardList.renderItems();
+
+//Включение валидации форм
+const addFormValidation = new FormValidator(validationConfig, addForm);
+addFormValidation.enableValidation();
+const changeFormValidation = new FormValidator(validationConfig, changeForm)
+changeFormValidation.enableValidation();
+
+

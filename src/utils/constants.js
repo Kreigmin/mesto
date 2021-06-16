@@ -6,6 +6,8 @@ export const addPopupSelector = '.popup_type_card';
 export const editPopupSelector = '.popup_type_edit';
 export const addFormSelector = '.addCardForm';
 export const changeFormSelector = '.profileChangeForm';
+export const changeForm = document.querySelector(changeFormSelector);
+export const addForm = document.querySelector(addFormSelector);
 
 export const editBtn = document.querySelector('.profile__edit-btn');// Выбор кнопки редактирования
 export const addBtn = document.querySelector('.profile__add-btn');// Выбор кнопки добавления карточки
