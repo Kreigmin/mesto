@@ -58,12 +58,12 @@ editBtn.addEventListener('click', function() {//Слушатель при наж
   const {name, job} =  info.getUserInfo();
   inputName.value = name.textContent;
   inputJob.value = job.textContent;
-  changeFormValidation.clearValidation(editBtn);
+  changeFormValidation.clearValidation();
 });
 
 addBtn.addEventListener('click', function() {//Слушатель при нажании открыть popup добавления карточки
   addPopup.open()
-  addFormValidation.clearValidation(addBtn);
+  addFormValidation.clearValidation();
 });
 
 //Добавление начальных карточек карточек

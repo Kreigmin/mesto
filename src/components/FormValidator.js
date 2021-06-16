@@ -28,8 +28,8 @@ export default class FormValidator {
     errorElement.textContent = '';
   }
 
-  _hasInvalidInput(inputList) {
-    return inputList.some((inputElement) => {
+  _hasInvalidInput() {
+    return this._inputList.some((inputElement) => {
       return !inputElement.validity.valid;
     });
   }
@@ -44,7 +44,7 @@ export default class FormValidator {
 
   //метод преключения кнопки submit-----------------------------------------------------------------------------------------
   _toggleButtonState() {
-      if (this._hasInvalidInput(this._inputList)) {
+      if (this._hasInvalidInput()) {
         this._buttonElement.classList.add(this._inactiveButtonClass);
         this._buttonElement.setAttribute('disabled', true);
       } else {
@@ -53,16 +53,9 @@ export default class FormValidator {
       }
     }
 
-    // _handleClearErrorsAndToggleButton(fieldset, inputs, button) {
-    //   this._clearAllInputs(fieldset, this._inputSelector, this._inputErrorClass, this._errorClass);
-    //   this._toggleButtonState(inputs, button);
-    // }
-
-    clearValidation(button) {
-      button.addEventListener('click', () => {
-        this._clearAllInputs();
-        this._toggleButtonState();
-      });
+    clearValidation() {
+      this._clearAllInputs();
+      this._toggleButtonState();
     }
 
   // метод добавления слушателей-----------------------------------------------------------------------------------------
