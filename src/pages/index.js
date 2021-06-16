@@ -24,20 +24,19 @@ import {
 } from '../utils/constants.js'
 
 const editPopup = new PopupWithForm(editPopupSelector, changeFormSelector,
-(evt) => {
-  evt.preventDefault();
-  info.setUserInfo(inputName.value, inputJob.value)
+(data) => {
+  const {profileName, profileJob} = data;
+  info.setUserInfo(profileName, profileJob);
   editPopup.close();
 });
 editPopup.setEventListeners();
 
 const addPopup = new PopupWithForm(addPopupSelector, addFormSelector,
-  (evt) => {
-    evt.preventDefault();
-    const data = {name: inputPlaceName.value, link: inputPlaceImage.value};
-    const card = new Card({name: data.name, link: data.link, handleCardClick: () =>
+  (data) => {
+    const {cardName, cardImage} = data;
+    const card = new Card({name: cardName, link: cardImage, handleCardClick: () =>
       {
-        fullImagePopup.open(data.name, data.link);
+        fullImagePopup.open(cardName, cardImage);
       }},
       '.card-template');
     const cardElement = card.generateCard();
