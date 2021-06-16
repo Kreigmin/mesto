@@ -1,5 +1,3 @@
-import { editBtn, addBtn } from '../utils/constants.js';
-
 export default class FormValidator {
   constructor(validationConfig, currentForm) {
     this._currentForm = currentForm;

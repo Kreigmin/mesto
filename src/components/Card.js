@@ -31,8 +31,8 @@ export default class Card {
   }
 
   _handleDeleteCardClick() {
-    const listItem = this._element.querySelector('.card__delete-btn').closest('.card');
-    listItem.remove();
+    this._element.remove();
+    this._element = null;
   }
 
   _setEventListeners() {
