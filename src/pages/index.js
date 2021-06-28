@@ -5,7 +5,8 @@ import Section from '../components/Section.js';
 import PopupWithImage from '../components/PopupWithImage.js';
 import PopupWithForm from '../components/PopupWithForm.js';
 import UserInfo from '../components/UserInfo.js';
-import FormValidator from '../components/FormValidator.js'
+import FormValidator from '../components/FormValidator.js';
+import Api from '../components/Api.js';
 import {
   inputName,
   inputJob,
@@ -93,5 +94,8 @@ const addFormValidation = new FormValidator(validationConfig, addForm);
 addFormValidation.enableValidation();
 const changeFormValidation = new FormValidator(validationConfig, changeForm)
 changeFormValidation.enableValidation();
+
+const api = new Api('https://mesto.nomoreparties.co/v1/cohort-25');
+api.getUserInfo();
 
 
