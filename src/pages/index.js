@@ -9,8 +9,6 @@ import FormValidator from '../components/FormValidator.js'
 import {
   inputName,
   inputJob,
-  inputPlaceName,
-  inputPlaceImage,
   addPopupSelector,
   editPopupSelector,
   addFormSelector,
@@ -20,7 +18,9 @@ import {
   validationConfig,
   editBtn,
   addBtn,
-  initialCards
+  initialCards,
+  confirmPopupSelector,
+  confirmFormSelector,
 } from '../utils/constants.js'
 
 const editPopup = new PopupWithForm(editPopupSelector, changeFormSelector,
@@ -34,20 +34,27 @@ editPopup.setEventListeners();
 const addPopup = new PopupWithForm(addPopupSelector, addFormSelector,
   (data) => {
     const {cardName, cardImage} = data;
-    const card = new Card({name: cardName, link: cardImage, handleCardClick: () =>
+    const card = new Card({name: cardName,
+      link: cardImage,
+      handleCardClick: () =>
       {
         fullImagePopup.open(cardName, cardImage);
-      }},
-      '.card-template');
+      },
+      handleConfirmPopupClick: () => {
+        confirmPopup.open();
+      }}, '.card-template');
+
     const cardElement = card.generateCard();
     cardList.addItem(cardElement);
     addPopup.close();
   });
 addPopup.setEventListeners();
 
+const confirmPopup = new PopupWithForm(confirmPopupSelector, confirmFormSelector);
+confirmPopup.setEventListeners();
+
 const fullImagePopup = new PopupWithImage('.popup_type_image');
 fullImagePopup.setEventListeners();
-
 
 
 const info = new UserInfo({profileNameSelector: '.profile__name', profileJobSelector: '.profile__job'});
@@ -65,11 +72,14 @@ addBtn.addEventListener('click', function() {//Слушатель при наж�
   addFormValidation.clearValidation();
 });
 
+
 //Добавление начальных карточек карточек
 const cardList = new Section({items: initialCards,
   renderer: (item) => {
     const card = new Card({name: item.name, link: item.link, handleCardClick: () => {
       fullImagePopup.open(item.name, item.link);
+    }, handleConfirmPopupClick: () => {
+      confirmPopup.open();
     }}, '.card-template');
     const cardElement = card.generateCard();
     cardList.addItem(cardElement);

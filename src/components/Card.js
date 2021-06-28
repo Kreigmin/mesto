@@ -1,9 +1,11 @@
 export default class Card {
-  constructor({name, link, handleCardClick}, templateSelector) {
+  constructor({name, link, handleCardClick, handleConfirmPopupClick}, templateSelector) {
     this._templateSelector = templateSelector;
     this._title = name;
     this._image = link;
     this._handleCardClick = handleCardClick;
+    this._handleConfirmPopupClick = handleConfirmPopupClick;
+
   }
 
   _getTemplate() {
@@ -41,7 +43,7 @@ export default class Card {
     });
 
     this._element.querySelector('.card__delete-btn').addEventListener('click', () => {
-      this._handleDeleteCardClick();
+      this._handleConfirmPopupClick();
     });
 
     this._element.querySelector('.card__full-img-btn').addEventListener('click', () => {
