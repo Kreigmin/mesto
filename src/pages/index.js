@@ -7,6 +7,7 @@ import PopupWithForm from '../components/PopupWithForm.js';
 import UserInfo from '../components/UserInfo.js';
 import FormValidator from '../components/FormValidator.js';
 import Api from '../components/Api.js';
+import PopupWithFormSubmit from '../components/PopupWithFormSubmit.js'
 import {
   inputName,
   inputJob,
@@ -23,28 +24,24 @@ import {
   confirmFormSelector,
 } from '../utils/constants.js'
 
-const editPopup = new PopupWithForm(editPopupSelector, changeFormSelector);
-editPopup.setEventListeners();
-
-editPopup.submitFormWithInputs((data) => {
+const editPopup = new PopupWithForm(editPopupSelector, changeFormSelector, (data) => {
   const {profileName, profileJob} = data;
   api.sendProfileDataToServer(profileName, profileJob)
     .then((data) => {
       info.setUserInfo(data.name, data.about);
     });
   editPopup.close();
-});
+} );
+editPopup.setEventListeners();
 
-const addPopup = new PopupWithForm(addPopupSelector, addFormSelector);
-addPopup.setEventListeners();
-
-addPopup.submitFormWithInputs((data) => {
+const addPopup = new PopupWithForm(addPopupSelector, addFormSelector, (data) => {
   const {cardName, cardImage} = data
   api.addNewCardToServer(cardName, cardImage).then((card) => {
     cardList.renderCard(card);
   });
   addPopup.close();
-})
+});
+addPopup.setEventListeners();
 
 
 
@@ -76,14 +73,8 @@ const changeFormValidation = new FormValidator(validationConfig, changeForm)
 changeFormValidation.enableValidation();
 //======================================================================================================================================
 
-
-
-const confirmPopup = new PopupWithForm(confirmPopupSelector, confirmFormSelector);
+const confirmPopup = new PopupWithFormSubmit(confirmPopupSelector, confirmFormSelector);
 confirmPopup.setEventListeners();
-
-
-
-
 
 const cardList = new Section({items: [],
   renderer: (item) => {
@@ -91,7 +82,7 @@ const cardList = new Section({items: [],
       fullImagePopup.open(item.name, item.link);
     }, handleConfirmPopupClick: (cardid) => {
       confirmPopup.open();
-      confirmPopup.deleteCardOnSubmit(cardid, (cardid) => {
+      confirmPopup.setSubmitAction(() => {
         api.deleteCard(cardid).then(() => {
           cardElement.remove();
           confirmPopup.close();
@@ -110,7 +101,7 @@ const cardList = new Section({items: [],
         if (item.likes.length === 0) {
           cardLike.textContent = item.likes.length;
         } else {
-          cardLike.textContent = item.likes.length -1;
+          cardLike.textContent = item.likes.length - 1;
         }
 
       })

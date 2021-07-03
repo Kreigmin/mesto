@@ -1,8 +1,9 @@
 import Popup from "./Popup.js";
 
 export default class PopupWithForm extends Popup {
-  constructor(popupSelector, formSelector) {
+  constructor(popupSelector, formSelector, handleSubmitForm) {
     super(popupSelector, formSelector);
+    this._handleSubmitForm = handleSubmitForm;
   }
 
   _getInputValues() {
@@ -19,21 +20,13 @@ export default class PopupWithForm extends Popup {
     currentForm.reset();
   }
 
-  deleteCardOnSubmit(cardid,handleDeleteCard) {
-    this._popup.addEventListener('submit', (evt) => {
-      evt.preventDefault();
-      handleDeleteCard(cardid);
-    })
-  }
 
-  submitFormWithInputs(handleSubmitForm) {
+  setEventListeners() {
+    super.setEventListeners();
+
     this._popup.addEventListener('submit', (evt) => {
       evt.preventDefault();
       handleSubmitForm(this._getInputValues())
     });
-  }
-
-  setEventListeners() {
-    super.setEventListeners();
   }
 }
