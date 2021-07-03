@@ -31,45 +31,12 @@ export const validationConfig = {
   errorClass: 'form__input-error_active'
 }
 
-import baikal from '../images/baikal.jfif'
 import closeIcon from '../images/close-icon.svg';
 import closeIconSmall from '../images/close-icon320.svg';
-import Cousteau from '../images/Cousteau.png';
 import deleteIcon from '../images/delete-icon.svg';
-import dombay from '../images/dombay.jfif';
-import elbrus from '../images/elbrus.jfif';
-import eltonLake from '../images/elton-lake.jfif';
-import kazbek from '../images/kazbek.jfif';
 import likeActive from '../images/like-active.svg';
 import likeDisabled from '../images/like-disabled.svg';
 import logo from '../images/logo.svg';
 import pen from '../images/pen.svg';
 import plus from '../images/plus.svg';
-import redSquare from '../images/red-square.jfif';
 
-export const initialCards = [
-  {
-    name: 'Байкал',
-    link: baikal
-  },
-  {
-    name: 'Домбай',
-    link: dombay
-  },
-  {
-    name: 'Вулкан Эльбрус',
-    link: elbrus
-  },
-  {
-    name: 'Озеро Эльтон',
-    link: eltonLake
-  },
-  {
-    name: 'Вулкан Казбек',
-    link: kazbek
-  },
-  {
-    name: 'Красная площадь',
-    link: redSquare
-  }
-];

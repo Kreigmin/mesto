@@ -90,13 +90,15 @@
   </div>
   <template class="card-template">
     <li class="card">
-      <button class="card__delete-btn" type="button" aria-label="Удалить"></button>
       <button class="card__full-img-btn">
         <img class="card__image" src="#" alt="">
       </button>
       <div class="card__footer">
         <h2 class="card__title"></h2>
-        <button class="card__like" type="button" aria-label="Нравится"></button>
+        <div class="card__like-container">
+          <button class="card__like" type="button" aria-label="Нравится"></button>
+          <p class="card__like-number"></p>
+        </div>
       </div>
     </li>
   </template>

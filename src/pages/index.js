@@ -19,40 +19,35 @@ import {
   validationConfig,
   editBtn,
   addBtn,
-  initialCards,
   confirmPopupSelector,
   confirmFormSelector,
 } from '../utils/constants.js'
 
-const editPopup = new PopupWithForm(editPopupSelector, changeFormSelector,
-(data) => {
-  const {profileName, profileJob} = data;
-  info.setUserInfo(profileName, profileJob);
-  editPopup.close();
-});
+const editPopup = new PopupWithForm(editPopupSelector, changeFormSelector);
 editPopup.setEventListeners();
 
-const addPopup = new PopupWithForm(addPopupSelector, addFormSelector,
-  (data) => {
-    const {cardName, cardImage} = data;
-    const card = new Card({name: cardName,
-      link: cardImage,
-      handleCardClick: () =>
-      {
-        fullImagePopup.open(cardName, cardImage);
-      },
-      handleConfirmPopupClick: () => {
-        confirmPopup.open();
-      }}, '.card-template');
+editPopup.submitFormWithInputs((data) => {
+  const {profileName, profileJob} = data;
+  api.sendProfileDataToServer(profileName, profileJob)
+    .then((data) => {
+      info.setUserInfo(data.name, data.about);
+    });
+  editPopup.close();
+});
 
-    const cardElement = card.generateCard();
-    cardList.addItem(cardElement);
-    addPopup.close();
-  });
+const addPopup = new PopupWithForm(addPopupSelector, addFormSelector);
 addPopup.setEventListeners();
 
-const confirmPopup = new PopupWithForm(confirmPopupSelector, confirmFormSelector);
-confirmPopup.setEventListeners();
+addPopup.submitFormWithInputs((data) => {
+  const {cardName, cardImage} = data
+  api.addNewCardToServer(cardName, cardImage).then((card) => {
+    cardList.renderCard(card);
+  });
+  addPopup.close();
+})
+
+
+
 
 const fullImagePopup = new PopupWithImage('.popup_type_image');
 fullImagePopup.setEventListeners();
@@ -74,28 +69,72 @@ addBtn.addEventListener('click', function() {//Слушатель при наж�
 });
 
 
-//Добавление начальных карточек карточек
-const cardList = new Section({items: initialCards,
-  renderer: (item) => {
-    const card = new Card({name: item.name, link: item.link, handleCardClick: () => {
-      fullImagePopup.open(item.name, item.link);
-    }, handleConfirmPopupClick: () => {
-      confirmPopup.open();
-    }}, '.card-template');
-    const cardElement = card.generateCard();
-    cardList.addItem(cardElement);
-  }}, '.cards__list');
-
-
-cardList.renderItems();
-
 //Включение валидации форм
 const addFormValidation = new FormValidator(validationConfig, addForm);
 addFormValidation.enableValidation();
 const changeFormValidation = new FormValidator(validationConfig, changeForm)
 changeFormValidation.enableValidation();
+//======================================================================================================================================
 
-const api = new Api('https://mesto.nomoreparties.co/v1/cohort-25');
+
+
+const confirmPopup = new PopupWithForm(confirmPopupSelector, confirmFormSelector);
+confirmPopup.setEventListeners();
+
+
+
+
+
+const cardList = new Section({items: [],
+  renderer: (item) => {
+    const card = new Card({data: item, handleCardClick: () => {
+      fullImagePopup.open(item.name, item.link);
+    }, handleConfirmPopupClick: (cardid) => {
+      confirmPopup.open();
+      confirmPopup.deleteCardOnSubmit(cardid, (cardid) => {
+        api.deleteCard(cardid).then(() => {
+          cardElement.remove();
+          confirmPopup.close();
+        })
+      })
+    }, sendLike: (idCard, likes) => {
+      const cardLike = cardElement.querySelector('.card__like-number')
+      api.sendLikeToServer(idCard, likes)
+      .then(() => {
+          cardLike.textContent = item.likes.length + 1;
+        })
+    }, deleteLike: (idCard) => {
+      const cardLike = cardElement.querySelector('.card__like-number')
+      api.deleteLike(idCard)
+      .then(() => {
+        if (item.likes.length === 0) {
+          cardLike.textContent = item.likes.length;
+        } else {
+          cardLike.textContent = item.likes.length -1;
+        }
+
+      })
+    }}, '.card-template');
+    const cardElement = card.generateCard();
+    cardList.addItem(cardElement);
+  }
+}, '.cards__list');
+
+
+const api = new Api({baseUrl: 'https://mesto.nomoreparties.co/v1/cohort-25',
+authorization: 'd4c6f8c0-4eea-4fc7-88ea-b49bfd0af7e6',
+contentType: 'application/json'});
+
 api.getUserInfo();
 
+api.getCards().then((cards) => {
+  cardList.renderInitialCards(cards);
+});
 
+
+// confirmPopup.deleteCardOnSubmit(() => {
+      //   api.deleteCard(item._id).then(() => {
+      //     cardElement.remove();
+      //     confirmPopup.close();
+      //   })
+      // })

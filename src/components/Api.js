@@ -1,13 +1,15 @@
 export default class Api {
-  constructor(baseUrl) {
+  constructor({baseUrl, authorization, contentType}) {
     this._baseUrl = baseUrl;
-    this._authorization = 'd4c6f8c0-4eea-4fc7-88ea-b49bfd0af7e6';
-    this._contentType = 'application/json';
-  }
-  // lala() {
-  //   console.log(this);
-  // }
+    this._authorization = authorization;
+    this._contentType = contentType;
+    this._profileName = document.querySelector('.profile__name');
+    this._profileJob = document.querySelector('.profile__job');
+    this._profileAvatar = document.querySelector('.profile__avatar');
 
+  }
+
+  // method which requests profile data from server and set them
   getUserInfo() {
     return fetch(this._baseUrl + '/users/me', {
       headers: {
@@ -15,53 +17,147 @@ export default class Api {
       }
     })
     .then(res => {
-      if (res.ok) {
+      if (res.ok) {// response status check, if status 200 Ok => return promise
         return res.json();
       }
-      return Promise.reject(`Ошибка: ${res.status}`)
+      return Promise.reject(`Ошибка: ${res.status}`);
     })
-    .then((data) => {
-      document.querySelector('.profile__name').textContent = data.name;
-      document.querySelector('.profile__job').textContent = data.about;
-      document.querySelector('.profile__avatar').src = data.avatar;
+    .then((data) => {//callback which sets data on the site
+      this._profileName.textContent = data.name;
+      this._profileJob.textContent = data.about;
+      this._profileAvatar.src = data.avatar;
     })
     .catch((err) => {
       console.log(err);
     })
   }
-  // lala() {
-  //   fetch('https://mesto.nomoreparties.co/v1/cohort-25/cards', {
-  //     headers: {
-  //       authorization: 'd4c6f8c0-4eea-4fc7-88ea-b49bfd0af7e6'
-  //     }
-  //   }).then(res => res.json()).then((res) => {
-  //     console.log(res);
-  //   })
-  // }
 
-  // addNewCardToServer() {
-  //   fetch('https://mesto.nomoreparties.co/v1/cohort-25/cards', {
-  //     method: 'POST',
-  //     headers: {
-  //       authorization: 'd4c6f8c0-4eea-4fc7-88ea-b49bfd0af7e6',
-  //       'Content-Type': 'application/json'
-  //     },
-  //     body: JSON.stringify({
-  //       name: 'Архыз',
-  //       link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/arkhyz.jpg'
-  //     })
-  //   })
-  // }
-  // deleteCardfromServer() {
-  //   fetch('https://mesto.nomoreparties.co/v1/cohort-25/cards/' + '60d9fb224a5b6302c5a09c33', {
-  //     method: 'DELETE',
-  //     headers:{
-  //       authorization: 'd4c6f8c0-4eea-4fc7-88ea-b49bfd0af7e6',
-  //       'Content-Type': 'application/json'
-  //     }
-  //   }).then(res => res.json()).then((res) => {
-  //     console.log(res);
-  //   })
-  // }
+  // method which requests initial data of cards
+  getCards() {
+    return fetch(this._baseUrl + '/cards', {
+      headers: {
+        authorization: this._authorization
+      }
+    })
+    .then(res => {
+      if(res.ok) {// response status check, if status 200 Ok => return promise
+        return res.json();
+      }
+      return Promise.reject(`Ошибка: ${res.status}`);
+    })
+    .catch((err) => {
+      console.log(err);
+    })
+  }
+
+
+  // method which send new profile data to server
+  sendProfileDataToServer(profileName, profileJob) {
+    return fetch(this._baseUrl + '/users/me', {
+      method: 'PATCH',
+      headers: {
+        authorization: this._authorization,
+        'Content-Type': this._contentType
+      },
+      body: JSON.stringify({
+        name: profileName,
+        about: profileJob
+      })
+    })
+    .then(res => {
+      if (res.ok) {// response status check, if status 200 Ok => return promise
+        return res.json();
+      }
+      return Promise.reject(`Ошибка: ${res.status}`);
+    })
+    .catch((err) => {
+      console.log(err);
+    })
+  }
+
+  // method which send new card data to server
+  addNewCardToServer(cardName, cardLink) {
+    return fetch(this._baseUrl + '/cards', {
+      method: 'POST',
+      headers: {
+        authorization: this._authorization,
+        'Content-Type': this._contentType
+      },
+      body: JSON.stringify({
+        name: cardName,
+        link: cardLink
+      })
+    })
+    .then(res => {
+      if(res.ok) {// response status check, if status 200 Ok => return promise
+        return res.json();
+      }
+      return Promise.reject(`Ошибка: ${res.status}`);
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+  }
+
+  // method which delete card
+  deleteCard(idCard) {
+    return fetch(this._baseUrl + '/cards/' + idCard, {
+      method: 'DELETE',
+      headers: {
+        authorization: this._authorization,
+        'Content-Type': this._contentType
+      }
+    })
+    .then(res => {
+      if(res.ok) {
+        return res.json();
+      }
+      return Promise.reject(`Ошибка: ${res.status}`);
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+  }
+
+  sendLikeToServer(cardId, likes) {
+    return fetch(this._baseUrl + '/cards/likes/' + cardId, {
+      method: 'PUT',
+      headers: {
+        authorization: this._authorization,
+        'Content-Type': this._contentType
+      },
+      body: JSON.stringify({
+        likes: likes
+      })
+    })
+    .then(res => {
+      if(res.ok) {
+        return res.json();
+      }
+      return Promise.reject(`Ошибка: ${res.status}`);
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+  }
+
+  deleteLike(idCard) {
+    return fetch(this._baseUrl + '/cards/likes/' + idCard, {
+      method: 'DELETE',
+      headers: {
+        authorization: this._authorization,
+        'Content-Type': this._contentType
+      }
+    })
+    .then(res => {
+      if(res.ok) {
+        return res.json();
+      }
+      return Promise.reject(`Ошибка: ${res.status}`);
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+  }
 
 }
