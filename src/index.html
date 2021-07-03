@@ -14,8 +14,12 @@
     <main class="main">
       <section class="profile">
         <div class="profile__info">
-          <!-- <img class="profile__avatar" src="<%=require('./images/Cousteau.png')%>" alt="Аватар"> -->
-          <img class="profile__avatar" src="#" alt="Аватар">
+          <div class="profile__avatar">
+            <button class="profile__change-avatar-btn" type="button" aria-label="Изменить аватар">
+              <img class="profile__avatar-pen" src="<%=require('./images/change-avatar-pen.svg')%>" alt="изображение ручки">
+              <!-- <div class="profile__avatar-pen"></div> -->
+            </button>
+          </div>
           <div class="profile__text">
             <h1 class="profile__name"></h1>
             <button class="profile__edit-btn" type="button" aria-label="Редактировать"></button>

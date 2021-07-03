@@ -25,7 +25,7 @@ export default class Api {
     .then((data) => {//callback which sets data on the site
       this._profileName.textContent = data.name;
       this._profileJob.textContent = data.about;
-      this._profileAvatar.src = data.avatar;
+      this._profileAvatar.style.backgroundImage = `url(${data.avatar})`;
     })
     .catch((err) => {
       console.log(err);

@@ -91,19 +91,14 @@ const cardList = new Section({items: [],
     }, sendLike: (idCard, likes) => {
       const cardLike = cardElement.querySelector('.card__like-number')
       api.sendLikeToServer(idCard, likes)
-      .then(() => {
-          cardLike.textContent = item.likes.length + 1;
-        })
+      .then((data) => {
+        cardLike.textContent = data.likes.length;
+      })
     }, deleteLike: (idCard) => {
       const cardLike = cardElement.querySelector('.card__like-number')
       api.deleteLike(idCard)
-      .then(() => {
-        if (item.likes.length === 0) {
-          cardLike.textContent = item.likes.length;
-        } else {
-          cardLike.textContent = item.likes.length - 1;
-        }
-
+      .then((data) => {
+        cardLike.textContent = data.likes.length;
       })
     }}, '.card-template');
     const cardElement = card.generateCard();
@@ -122,10 +117,3 @@ api.getCards().then((cards) => {
   cardList.renderInitialCards(cards);
 });
 
-
-// confirmPopup.deleteCardOnSubmit(() => {
-      //   api.deleteCard(item._id).then(() => {
-      //     cardElement.remove();
-      //     confirmPopup.close();
-      //   })
-      // })

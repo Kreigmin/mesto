@@ -45,7 +45,7 @@ export default class Card {
   _handleLikeClick(evt) {
     if (!this._element.querySelector('.card__like').classList.contains('card__like_active')) {
       evt.target.classList.toggle('card__like_active');
-      this._sendLike(this._cardId, this._LikeNumber.length)
+      this._sendLike(this._cardId, this._LikeNumber)
     } else {
       evt.target.classList.toggle('card__like_active');
       this._deleteLike(this._cardId)
