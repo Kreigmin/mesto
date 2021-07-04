@@ -65,7 +65,7 @@ addPopup.setEventListeners();
 //create a sapmple of the PopupWithForm for change avatar popup
 const changeAvatarPopup = new PopupWithForm(changeAvatarPopupSelector, changeAvatarFormSelector, (data, btn) => {
   renderLoading(true, btn, 'Сохранение...');
-  const avatarLink = Object.values(data)[0];
+  const avatarLink = data.avatarImage;
   api.changeAvatar(avatarLink).finally(renderLoading(false, btn, 'Сохранить'));
   changeAvatarPopup.close();
 })
