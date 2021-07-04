@@ -22,29 +22,50 @@ import {
   addBtn,
   confirmPopupSelector,
   confirmFormSelector,
+  changeAvatarPopupSelector,
+  changeAvatarFormSelector,
+  changeAvatarForm,
+  changeAvatarBtn
 } from '../utils/constants.js'
 
-const editPopup = new PopupWithForm(editPopupSelector, changeFormSelector, (data) => {
+const renderLoading = (isLoading, btn, btnText) => {
+  if (isLoading) {
+    btn.textContent = btnText;
+  } else {
+    btn.textContent = btnText;
+  }
+}
+
+const editPopup = new PopupWithForm(editPopupSelector, changeFormSelector, (data, btn) => {
+  renderLoading(true, btn, 'Сохранение...');
   const {profileName, profileJob} = data;
   api.sendProfileDataToServer(profileName, profileJob)
     .then((data) => {
       info.setUserInfo(data.name, data.about);
-    });
+    })
+    .finally(renderLoading(false, btn, 'Сохранить'))
   editPopup.close();
 } );
 editPopup.setEventListeners();
 
-const addPopup = new PopupWithForm(addPopupSelector, addFormSelector, (data) => {
+const addPopup = new PopupWithForm(addPopupSelector, addFormSelector, (data, btn) => {
+  renderLoading(true, btn, 'Создать');
   const {cardName, cardImage} = data
   api.addNewCardToServer(cardName, cardImage).then((card) => {
     cardList.renderCard(card);
-  });
+  })
+  .finally(renderLoading(false, btn, 'Создать'));
   addPopup.close();
 });
 addPopup.setEventListeners();
 
-
-
+const changeAvatarPopup = new PopupWithForm(changeAvatarPopupSelector, changeAvatarFormSelector, (data, btn) => {
+  renderLoading(true, btn, 'Сохранение...');
+  const avatarLink = Object.values(data)[0];
+  api.changeAvatar(avatarLink).finally(renderLoading(false, btn, 'Сохранить'));
+  changeAvatarPopup.close();
+})
+changeAvatarPopup.setEventListeners();
 
 const fullImagePopup = new PopupWithImage('.popup_type_image');
 fullImagePopup.setEventListeners();
@@ -65,12 +86,19 @@ addBtn.addEventListener('click', function() {//Слушатель при наж�
   addFormValidation.clearValidation();
 });
 
+changeAvatarBtn.addEventListener('click', () => {
+  changeAvatarPopup.open();
+  changeAvatarValidation.clearValidation();
+})
+
 
 //Включение валидации форм
 const addFormValidation = new FormValidator(validationConfig, addForm);
 addFormValidation.enableValidation();
-const changeFormValidation = new FormValidator(validationConfig, changeForm)
+const changeFormValidation = new FormValidator(validationConfig, changeForm);
 changeFormValidation.enableValidation();
+const changeAvatarValidation = new FormValidator(validationConfig, changeAvatarForm);
+changeAvatarValidation.enableValidation();
 //======================================================================================================================================
 
 const confirmPopup = new PopupWithFormSubmit(confirmPopupSelector, confirmFormSelector);

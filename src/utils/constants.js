@@ -10,7 +10,11 @@ export const changeForm = document.querySelector(changeFormSelector);
 export const addForm = document.querySelector(addFormSelector);
 export const confirmPopupSelector = '.popup_type_confirm';
 export const confirmFormSelector = '.confirmDeleteCardForm';
+export const changeAvatarPopupSelector = '.popup_type_avatar';
+export const changeAvatarFormSelector = '.changeAvatarForm';
 export const cardDeleteBtn = document.querySelector('.card__delete-btn');
+export const changeAvatarForm = document.querySelector(changeAvatarFormSelector);
+export const changeAvatarBtn = document.querySelector('.profile__change-avatar-btn');
 
 export const editBtn = document.querySelector('.profile__edit-btn');// Выбор кнопки редактирования
 export const addBtn = document.querySelector('.profile__add-btn');// Выбор кнопки добавления карточки

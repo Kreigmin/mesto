@@ -160,4 +160,29 @@ export default class Api {
     });
   }
 
+  changeAvatar(avatarLink) {
+    return fetch(this._baseUrl + '/users/me/avatar', {
+      method: 'PATCH',
+      headers: {
+        authorization: this._authorization,
+        'Content-Type': this._contentType
+      },
+      body: JSON.stringify({
+        avatar: avatarLink
+      })
+    })
+    .then(res => {
+      if(res.ok) {
+        return res.json();
+      }
+      return Promise.reject(`Ошибка: ${res.status}`);
+    })
+    .then((profile) => {
+      this._profileAvatar.style.backgroundImage = `url(${profile.avatar})`;
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+  }
+
 }
