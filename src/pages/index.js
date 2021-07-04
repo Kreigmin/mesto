@@ -36,6 +36,8 @@ const renderLoading = (isLoading, btn, btnText) => {
   }
 }
 
+//======================================start block where popups and logic for them are created========================================
+//create a sapmple of the PopupWithForm for edit user information popup
 const editPopup = new PopupWithForm(editPopupSelector, changeFormSelector, (data, btn) => {
   renderLoading(true, btn, 'Сохранение...');
   const {profileName, profileJob} = data;
@@ -48,6 +50,7 @@ const editPopup = new PopupWithForm(editPopupSelector, changeFormSelector, (data
 } );
 editPopup.setEventListeners();
 
+//create a sapmple of the PopupWithForm for create new card popup
 const addPopup = new PopupWithForm(addPopupSelector, addFormSelector, (data, btn) => {
   renderLoading(true, btn, 'Создать');
   const {cardName, cardImage} = data
@@ -59,6 +62,7 @@ const addPopup = new PopupWithForm(addPopupSelector, addFormSelector, (data, btn
 });
 addPopup.setEventListeners();
 
+//create a sapmple of the PopupWithForm for change avatar popup
 const changeAvatarPopup = new PopupWithForm(changeAvatarPopupSelector, changeAvatarFormSelector, (data, btn) => {
   renderLoading(true, btn, 'Сохранение...');
   const avatarLink = Object.values(data)[0];
@@ -67,12 +71,19 @@ const changeAvatarPopup = new PopupWithForm(changeAvatarPopupSelector, changeAva
 })
 changeAvatarPopup.setEventListeners();
 
+//create a sapmple of the PopupWithForm for confirm the deletion of the card popup
+const confirmPopup = new PopupWithFormSubmit(confirmPopupSelector, confirmFormSelector);
+confirmPopup.setEventListeners();
+//create a sapmple of the PopupWithForm for display full image of the card popup
 const fullImagePopup = new PopupWithImage('.popup_type_image');
 fullImagePopup.setEventListeners();
+//======================================end block where popups and logic for them are created==========================================
 
-
+//create a sample of the UserInfo class
 const info = new UserInfo({profileNameSelector: '.profile__name', profileJobSelector: '.profile__job'});
 
+//====================================================start block where buttons gets listeners=========================================
+// add listener for change profile information
 editBtn.addEventListener('click', function() {//Слушатель при нажании открыть popup изменения профиля
   editPopup.open();
   const {name, job} =  info.getUserInfo();
@@ -81,29 +92,30 @@ editBtn.addEventListener('click', function() {//Слушатель при наж
   changeFormValidation.clearValidation();
 });
 
+// add listener for create new card button
 addBtn.addEventListener('click', function() {//Слушатель при нажании открыть popup добавления карточки
   addPopup.open()
   addFormValidation.clearValidation();
 });
 
+// add listener for change avatar button
 changeAvatarBtn.addEventListener('click', () => {
   changeAvatarPopup.open();
   changeAvatarValidation.clearValidation();
 })
+//=================================================end block where buttons gets listeners==============================================
 
-
-//Включение валидации форм
+//============================================start block where validation for forms are created=======================================
 const addFormValidation = new FormValidator(validationConfig, addForm);
 addFormValidation.enableValidation();
 const changeFormValidation = new FormValidator(validationConfig, changeForm);
 changeFormValidation.enableValidation();
 const changeAvatarValidation = new FormValidator(validationConfig, changeAvatarForm);
 changeAvatarValidation.enableValidation();
-//======================================================================================================================================
+//============================================end block where validation for forms are created=======================================
 
-const confirmPopup = new PopupWithFormSubmit(confirmPopupSelector, confirmFormSelector);
-confirmPopup.setEventListeners();
 
+//create a sapmple of the Section class
 const cardList = new Section({items: [],
   renderer: (item) => {
     const card = new Card({data: item, handleCardClick: () => {
@@ -134,13 +146,16 @@ const cardList = new Section({items: [],
   }
 }, '.cards__list');
 
-
+//create a sample of the Api class
 const api = new Api({baseUrl: 'https://mesto.nomoreparties.co/v1/cohort-25',
 authorization: 'd4c6f8c0-4eea-4fc7-88ea-b49bfd0af7e6',
 contentType: 'application/json'});
 
+//get user info from the server and paste on the site on load
 api.getUserInfo();
 
+
+//get initial cards and render them
 api.getCards().then((cards) => {
   cardList.renderInitialCards(cards);
 });
