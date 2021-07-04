@@ -38,6 +38,29 @@ const renderLoading = (isLoading, btn, btnText) => {
   }
 }
 
+//create a sample of the Api class
+const api = new Api({baseUrl: 'https://mesto.nomoreparties.co/v1/cohort-25',
+authorization: 'd4c6f8c0-4eea-4fc7-88ea-b49bfd0af7e6',
+contentType: 'application/json'});
+
+//get user info from the server and paste on the site on load
+const setProfile =  api.getUserInfo();
+
+//get initial cards and render them
+const renderCards =  api.getCards();
+
+Promise.all([setProfile, renderCards]).then((data) => {
+  const profileData = data[0];
+  const initialCards = data[1];
+  info.setUserInfo(profileData.name, profileData.about, profileData.avatar);
+  userId = profileData._id;
+  cardList.renderInitialCards(initialCards);
+}).catch((err) => {
+  console.log(err);
+});
+
+
+
 //======================================start block where popups and logic for them are created========================================
 //create a sapmple of the PopupWithForm for edit user information popup
 const editPopup = new PopupWithForm(editPopupSelector, changeFormSelector, (data, btn) => {
@@ -121,50 +144,36 @@ changeFormValidation.enableValidation();
 
 
 //create a sapmple of the Section class
-// const cardList = new Section({items: [],
-//   renderer: (item) => {
-//     const card = new Card({data: item, handleCardClick: () => {
-//       fullImagePopup.open(item.name, item.link);
-//     }, handleConfirmPopupClick: (cardid) => {
-//       confirmPopup.open();
-//       confirmPopup.setSubmitAction(() => {
-//         api.deleteCard(cardid).then(() => {
-//           cardElement.remove();
-//           confirmPopup.close();
-//         })
-//       })
-//     }, sendLike: (idCard, likes) => {
-//       const cardLike = cardElement.querySelector('.card__like-number')
-//       api.sendLikeToServer(idCard, likes)
-//       .then((data) => {
-//         cardLike.textContent = data.likes.length;
-//       })
-//     }, deleteLike: (idCard) => {
-//       const cardLike = cardElement.querySelector('.card__like-number')
-//       api.deleteLike(idCard)
-//       .then((data) => {
-//         cardLike.textContent = data.likes.length;
-//       })
-//     }}, '.card-template');
-//     const cardElement = card.generateCard();
-//     cardList.addItem(cardElement);
-//   }
-// }, '.cards__list');
+const cardList = new Section({items: [],
+  renderer: (item) => {
+    const card = new Card({data: item, userId: userId, handleCardClick: () => {
+      fullImagePopup.open(item.name, item.link);
+    }, handleConfirmPopupClick: (cardid) => {
+      confirmPopup.open();
+      confirmPopup.setSubmitAction(() => {
+        api.deleteCard(cardid).then(() => {
+          cardElement.remove();
+          confirmPopup.close();
+        })
+      })
+    }, sendLike: (idCard, likes) => {
+      const cardLike = cardElement.querySelector('.card__like-number')
+      api.sendLikeToServer(idCard, likes)
+      .then((data) => {
+        cardLike.textContent = data.likes.length;
+      })
+    }, deleteLike: (idCard) => {
+      const cardLike = cardElement.querySelector('.card__like-number')
+      api.deleteLike(idCard)
+      .then((data) => {
+        cardLike.textContent = data.likes.length;
+      })
+    }}, '.card-template');
+    const cardElement = card.generateCard();
+    cardList.addItem(cardElement);
+  }
+}, '.cards__list');
 
-//create a sample of the Api class
-const api = new Api({baseUrl: 'https://mesto.nomoreparties.co/v1/cohort-25',
-authorization: 'd4c6f8c0-4eea-4fc7-88ea-b49bfd0af7e6',
-contentType: 'application/json'});
 
-//get user info from the server and paste on the site on load
-api.getUserInfo().then((data) => {
-  info.setUserInfo(data.name, data.about, data.avatar);
-  userId = data._id;
-}).catch((err) => {
-  console.log(err);
-})
-//get initial cards and render them
-// api.getCards().then((cards) => {
-//   cardList.renderInitialCards(cards);
-// });
+
 

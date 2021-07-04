@@ -22,22 +22,19 @@ export default class Api {
   }
 
   // method which requests initial data of cards
-  // getCards() {
-  //   return fetch(this._baseUrl + '/cards', {
-  //     headers: {
-  //       authorization: this._authorization
-  //     }
-  //   })
-  //   .then(res => {
-  //     if(res.ok) {// response status check, if status 200 Ok => return promise
-  //       return res.json();
-  //     }
-  //     return Promise.reject(`Ошибка: ${res.status}`);
-  //   })
-  //   .catch((err) => {
-  //     console.log(err);
-  //   })
-  // }
+  getCards() {
+    return fetch(this._baseUrl + '/cards', {
+      headers: {
+        authorization: this._authorization
+      }
+    })
+    .then(res => {
+      if(res.ok) {// response status check, if status 200 Ok => return promise
+        return res.json();
+      }
+      return Promise.reject(`Ошибка: ${res.status}`);
+    })
+  }
 
 
   // // method which send new profile data to server

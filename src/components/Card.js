@@ -1,5 +1,5 @@
 export default class Card {
-  constructor({data, handleCardClick, handleConfirmPopupClick, sendLike, deleteLike},
+  constructor({data, userId, handleCardClick, handleConfirmPopupClick, sendLike, deleteLike},
     templateSelector) {
     this._templateSelector = templateSelector;
     this._title = data.name;
@@ -7,12 +7,11 @@ export default class Card {
     this._cardId = data._id;
     this._ownerId = data.owner._id;
     this._LikeNumber = data.likes;
+    this._userId = userId;
     this._handleCardClick = handleCardClick;
     this._handleConfirmPopupClick = handleConfirmPopupClick;
     this._sendLike = sendLike;
     this._deleteLike = deleteLike;
-
-    // this._deleteCardSubmit = deleteCardSubmit
   }
 
   _getTemplate() {
@@ -53,7 +52,7 @@ export default class Card {
   }
 
   _createDeleteCardBtn() {
-    if (this._ownerId === 'b5da1543032b73988ff80ae9') {
+    if (this._ownerId === this._userId) {
       const cardDeleteBtn = document.createElement('button');
       cardDeleteBtn.classList.add('card__delete-btn');
       cardDeleteBtn.type = 'button';
@@ -64,7 +63,7 @@ export default class Card {
 
   _checkUserlike() {
     this._LikeNumber.forEach((item) => {
-      if (item._id === 'b5da1543032b73988ff80ae9') {
+      if (item._id === this._userId) {
         this._element.querySelector('.card__like').classList.add('card__like_active')
       }
     })
