@@ -30,14 +30,6 @@ import {
 
 let userId;
 
-const renderLoading = (isLoading, btn, btnText) => {
-  if (isLoading) {
-    btn.textContent = btnText;
-  } else {
-    btn.textContent = btnText;
-  }
-}
-
 //create a sample of the Api class
 const api = new Api({baseUrl: 'https://mesto.nomoreparties.co/v1/cohort-25',
 authorization: 'd4c6f8c0-4eea-4fc7-88ea-b49bfd0af7e6',
@@ -65,7 +57,7 @@ Promise.all([setProfile, renderCards]).then((data) => {
 //======================================start block where popups and logic for them are created========================================
 //create a sapmple of the PopupWithForm for edit user information popup
 const editPopup = new PopupWithForm(editPopupSelector, changeFormSelector, (data, btn) => {
-  renderLoading(true, btn, 'Сохранение...');
+  editPopup.renderLoading(true, 'Сохранение...');
   const {profileName, profileJob} = data;
   api.sendProfileDataToServer(profileName, profileJob)
     .then((data) => {
@@ -76,7 +68,7 @@ const editPopup = new PopupWithForm(editPopupSelector, changeFormSelector, (data
       console.log(err)
     })
     .finally(() => {
-      renderLoading(false, btn, 'Сохранить')
+      editPopup.renderLoading(false, 'Сохранить')
     })
 
 
@@ -85,7 +77,7 @@ editPopup.setEventListeners();
 
 //create a sapmple of the PopupWithForm for create new card popup
 const addPopup = new PopupWithForm(addPopupSelector, addFormSelector, (data, btn) => {
-  renderLoading(true, btn, 'Создать');
+  addPopup.renderLoading(true, 'Создать');
   const {cardName, cardImage} = data
   api.addNewCardToServer(cardName, cardImage).then((card) => {
     cardList.renderCard(card);
@@ -95,14 +87,14 @@ const addPopup = new PopupWithForm(addPopupSelector, addFormSelector, (data, btn
     console.log(err)
   })
   .finally(() => {
-    renderLoading(false, btn, 'Создать')
+    addPopup.renderLoading(false, 'Создать')
   });
 });
 addPopup.setEventListeners();
 
 //create a sapmple of the PopupWithForm for change avatar popup
 const changeAvatarPopup = new PopupWithForm(changeAvatarPopupSelector, changeAvatarFormSelector, (data, btn) => {
-  renderLoading(true, btn, 'Сохранение...');
+  changeAvatarPopup.renderLoading(true, 'Сохранение...');
   const avatarLink = data.avatarImage;
   api.changeAvatar(avatarLink)
   .then((data) => {
@@ -113,7 +105,7 @@ const changeAvatarPopup = new PopupWithForm(changeAvatarPopupSelector, changeAva
     console.log(err)
   })
   .finally(() => {
-    renderLoading(false, btn, 'Сохранить')
+    changeAvatarPopup.renderLoading(false, 'Сохранить')
   });
 });
 changeAvatarPopup.setEventListeners();

@@ -19,11 +19,6 @@ export const changeAvatarBtn = document.querySelector('.profile__change-avatar-b
 export const editBtn = document.querySelector('.profile__edit-btn');// Выбор кнопки редактирования
 export const addBtn = document.querySelector('.profile__add-btn');// Выбор кнопки добавления карточки
 
-export const imagePopup = document.querySelector('.popup_type_image');//выбор popup показа полного изображения карточки
-export const imageCaption = document.querySelector('.image-popup__caption');//выбор подписи изображения в popup полного изображения карточки
-export const popupFullImage = document.querySelector('.image-popup__full-img');//выбор изображения в popup полного изображения карточки
-
-
 export const validationConfig = {
   currentPopupSelector: '.popup_opened',
   formSelector: '.form',
