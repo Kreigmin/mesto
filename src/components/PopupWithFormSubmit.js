@@ -8,11 +8,7 @@ export default class PopupWithForm extends Popup {
   }
 
   setSubmitAction(action) {
-    this._handleSubmitCallBack = action
-  }
-
-  _handleSubmitCallBack() {
-    this._handlerSubmit();
+    this._handleSubmitCallBack = action;
   }
 
   setEventListeners() {
