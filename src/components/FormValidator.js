@@ -79,7 +79,7 @@ export default class FormValidator {
     this._currentForm.addEventListener('submit', function (evt) {
       evt.preventDefault();
     });
-    this._setEventListeners(this._fieldset);
+    this._setEventListeners();
   }
 }
 
