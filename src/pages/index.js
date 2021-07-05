@@ -44,10 +44,10 @@ const renderCards =  api.getCards();
 Promise.all([setProfile, renderCards]).then((data) => {
   const profileData = data[0];
   const initialCards = data[1];
+  userId = profileData._id;
   info.setUserInfo(profileData.name, profileData.about);
   info.setAvatar(profileData.avatar)
   cardList.renderInitialCards(initialCards);
-  userId = profileData._id;
 }).catch((err) => {
   console.log(err);
 });
@@ -77,7 +77,7 @@ editPopup.setEventListeners();
 
 //create a sapmple of the PopupWithForm for create new card popup
 const addPopup = new PopupWithForm(addPopupSelector, addFormSelector, (data, btn) => {
-  addPopup.renderLoading(true, 'Создать');
+  addPopup.renderLoading(true, 'Создаётся...');
   const {cardName, cardImage} = data
   api.addNewCardToServer(cardName, cardImage).then((card) => {
     cardList.renderCard(card);
@@ -111,8 +111,8 @@ const changeAvatarPopup = new PopupWithForm(changeAvatarPopupSelector, changeAva
 changeAvatarPopup.setEventListeners();
 
 //create a sapmple of the PopupWithForm for confirm the deletion of the card popup
-// const confirmPopup = new PopupWithFormSubmit(confirmPopupSelector, confirmFormSelector);
-// confirmPopup.setEventListeners();
+const confirmPopup = new PopupWithFormSubmit(confirmPopupSelector, confirmFormSelector);
+confirmPopup.setEventListeners();
 //create a sapmple of the PopupWithForm for display full image of the card popup
 const fullImagePopup = new PopupWithImage('.popup_type_image');
 fullImagePopup.setEventListeners();
@@ -169,19 +169,26 @@ const cardList = new Section({items: [],
           cardElement.remove();
           confirmPopup.close();
         })
-      })
+        .catch((err) => {
+          console.log(err)
+        });
+      });
     }, sendLike: (idCard, likes) => {
-      const cardLike = cardElement.querySelector('.card__like-number')
       api.sendLikeToServer(idCard, likes)
       .then((data) => {
-        cardLike.textContent = data.likes.length;
+        card.updateLikes(data.likes.length);
+      })
+      .catch((err) => {
+        console.log(err)
       })
     }, deleteLike: (idCard) => {
-      const cardLike = cardElement.querySelector('.card__like-number')
       api.deleteLike(idCard)
       .then((data) => {
-        cardLike.textContent = data.likes.length;
+        card.updateLikes(data.likes.length);
       })
+      .catch((err) => {
+        console.log(err)
+      });
     }}, '.card-template');
     const cardElement = card.generateCard();
     cardList.addItem(cardElement);

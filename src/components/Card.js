@@ -69,6 +69,10 @@ export default class Card {
     })
   }
 
+  updateLikes(likes) {
+    this._element.querySelector('.card__like-number').textContent = likes;
+  }
+
 
   _setEventListeners() {
     this._element.querySelector('.card__like').addEventListener('click', (evt) => {
