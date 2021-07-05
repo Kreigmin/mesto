@@ -18,6 +18,10 @@ export default class UserInfo {
   setUserInfo(newName, newJob, newAvatar) {
     this._name.textContent = newName;
     this._job.textContent = newJob;
+
+  }
+
+  setAvatar(newAvatar) {
     this._avatar.style.backgroundImage = `url(${newAvatar})`;
   }
 }

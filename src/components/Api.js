@@ -38,28 +38,25 @@ export default class Api {
 
 
   // // method which send new profile data to server
-  // sendProfileDataToServer(profileName, profileJob) {
-  //   return fetch(this._baseUrl + '/users/me', {
-  //     method: 'PATCH',
-  //     headers: {
-  //       authorization: this._authorization,
-  //       'Content-Type': this._contentType
-  //     },
-  //     body: JSON.stringify({
-  //       name: profileName,
-  //       about: profileJob
-  //     })
-  //   })
-  //   .then(res => {
-  //     if (res.ok) {// response status check, if status 200 Ok => return promise
-  //       return res.json();
-  //     }
-  //     return Promise.reject(`Ошибка: ${res.status}`);
-  //   })
-  //   .catch((err) => {
-  //     console.log(err);
-  //   })
-  // }
+  sendProfileDataToServer(profileName, profileJob) {
+    return fetch(this._baseUrl + '/users/me', {
+      method: 'PATCH',
+      headers: {
+        authorization: this._authorization,
+        'Content-Type': this._contentType
+      },
+      body: JSON.stringify({
+        name: profileName,
+        about: profileJob
+      })
+    })
+    .then(res => {
+      if (res.ok) {// response status check, if status 200 Ok => return promise
+        return res.json();
+      }
+      return Promise.reject(`Ошибка: ${res.status}`);
+    })
+  }
 
   // // method which send new card data to server
   // addNewCardToServer(cardName, cardLink) {
@@ -80,9 +77,6 @@ export default class Api {
   //     }
   //     return Promise.reject(`Ошибка: ${res.status}`);
   //   })
-  //   .catch((err) => {
-  //     console.log(err);
-  //   });
   // }
 
   // // method which delete card
@@ -146,29 +140,23 @@ export default class Api {
   //   });
   // }
 
-  // changeAvatar(avatarLink) {
-  //   return fetch(this._baseUrl + '/users/me/avatar', {
-  //     method: 'PATCH',
-  //     headers: {
-  //       authorization: this._authorization,
-  //       'Content-Type': this._contentType
-  //     },
-  //     body: JSON.stringify({
-  //       avatar: avatarLink
-  //     })
-  //   })
-  //   .then(res => {
-  //     if(res.ok) {
-  //       return res.json();
-  //     }
-  //     return Promise.reject(`Ошибка: ${res.status}`);
-  //   })
-  //   .then((profile) => {
-  //     this._profileAvatar.style.backgroundImage = `url(${profile.avatar})`;
-  //   })
-  //   .catch((err) => {
-  //     console.log(err);
-  //   });
-  // }
+  changeAvatar(avatarLink) {
+    return fetch(this._baseUrl + '/users/me/avatar', {
+      method: 'PATCH',
+      headers: {
+        authorization: this._authorization,
+        'Content-Type': this._contentType
+      },
+      body: JSON.stringify({
+        avatar: avatarLink
+      })
+    })
+    .then(res => {
+      if(res.ok) {
+        return res.json();
+      }
+      return Promise.reject(`Ошибка: ${res.status}`);
+    })
+  }
 
 }

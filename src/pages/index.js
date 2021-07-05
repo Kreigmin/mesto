@@ -52,9 +52,10 @@ const renderCards =  api.getCards();
 Promise.all([setProfile, renderCards]).then((data) => {
   const profileData = data[0];
   const initialCards = data[1];
-  info.setUserInfo(profileData.name, profileData.about, profileData.avatar);
-  userId = profileData._id;
+  info.setUserInfo(profileData.name, profileData.about);
+  info.setAvatar(profileData.avatar)
   cardList.renderInitialCards(initialCards);
+  userId = profileData._id;
 }).catch((err) => {
   console.log(err);
 });
@@ -69,39 +70,60 @@ const editPopup = new PopupWithForm(editPopupSelector, changeFormSelector, (data
   api.sendProfileDataToServer(profileName, profileJob)
     .then((data) => {
       info.setUserInfo(data.name, data.about);
+      editPopup.close();
     })
-    .finally(renderLoading(false, btn, 'Сохранить'))
-  editPopup.close();
+    .catch((err) => {
+      console.log(err)
+    })
+    .finally(() => {
+      renderLoading(false, btn, 'Сохранить')
+    })
+
+
 } );
 editPopup.setEventListeners();
 
 //create a sapmple of the PopupWithForm for create new card popup
-// const addPopup = new PopupWithForm(addPopupSelector, addFormSelector, (data, btn) => {
-//   renderLoading(true, btn, 'Создать');
-//   const {cardName, cardImage} = data
-//   api.addNewCardToServer(cardName, cardImage).then((card) => {
-//     cardList.renderCard(card);
-//   })
-//   .finally(renderLoading(false, btn, 'Создать'));
-//   addPopup.close();
-// });
-// addPopup.setEventListeners();
+const addPopup = new PopupWithForm(addPopupSelector, addFormSelector, (data, btn) => {
+  renderLoading(true, btn, 'Создать');
+  const {cardName, cardImage} = data
+  api.addNewCardToServer(cardName, cardImage).then((card) => {
+    cardList.renderCard(card);
+    addPopup.close();
+  })
+  .catch((err) => {
+    console.log(err)
+  })
+  .finally(() => {
+    renderLoading(false, btn, 'Создать')
+  });
+});
+addPopup.setEventListeners();
 
 //create a sapmple of the PopupWithForm for change avatar popup
-// const changeAvatarPopup = new PopupWithForm(changeAvatarPopupSelector, changeAvatarFormSelector, (data, btn) => {
-//   renderLoading(true, btn, 'Сохранение...');
-//   const avatarLink = data.avatarImage;
-//   api.changeAvatar(avatarLink).finally(renderLoading(false, btn, 'Сохранить'));
-//   changeAvatarPopup.close();
-// })
-// changeAvatarPopup.setEventListeners();
+const changeAvatarPopup = new PopupWithForm(changeAvatarPopupSelector, changeAvatarFormSelector, (data, btn) => {
+  renderLoading(true, btn, 'Сохранение...');
+  const avatarLink = data.avatarImage;
+  api.changeAvatar(avatarLink)
+  .then((data) => {
+    info.setAvatar(data.avatar);
+    changeAvatarPopup.close();
+  })
+  .catch((err) => {
+    console.log(err)
+  })
+  .finally(() => {
+    renderLoading(false, btn, 'Сохранить')
+  });
+});
+changeAvatarPopup.setEventListeners();
 
 //create a sapmple of the PopupWithForm for confirm the deletion of the card popup
 // const confirmPopup = new PopupWithFormSubmit(confirmPopupSelector, confirmFormSelector);
 // confirmPopup.setEventListeners();
 //create a sapmple of the PopupWithForm for display full image of the card popup
-// const fullImagePopup = new PopupWithImage('.popup_type_image');
-// fullImagePopup.setEventListeners();
+const fullImagePopup = new PopupWithImage('.popup_type_image');
+fullImagePopup.setEventListeners();
 //======================================end block where popups and logic for them are created==========================================
 
 //create a sample of the UserInfo class
@@ -115,31 +137,31 @@ const info = new UserInfo({profileNameSelector: '.profile__name',
 editBtn.addEventListener('click', function() {//Слушатель при нажании открыть popup изменения профиля
   editPopup.open();
   const {name, job} =  info.getUserInformation();
-  inputName.value = name.textContent;
-  inputJob.value = job.textContent;
+  inputName.value = name;
+  inputJob.value = job;
   changeFormValidation.clearValidation();
 });
 
 // add listener for create new card button
-// addBtn.addEventListener('click', function() {//Слушатель при нажании открыть popup добавления карточки
-//   addPopup.open()
-//   addFormValidation.clearValidation();
-// });
+addBtn.addEventListener('click', function() {//Слушатель при нажании открыть popup добавления карточки
+  addPopup.open()
+  addFormValidation.clearValidation();
+});
 
 // add listener for change avatar button
-// changeAvatarBtn.addEventListener('click', () => {
-//   changeAvatarPopup.open();
-//   changeAvatarValidation.clearValidation();
-// })
+changeAvatarBtn.addEventListener('click', () => {
+  changeAvatarPopup.open();
+  changeAvatarValidation.clearValidation();
+})
 //=================================================end block where buttons gets listeners==============================================
 
 //============================================start block where validation for forms are created=======================================
-// const addFormValidation = new FormValidator(validationConfig, addForm);
-// addFormValidation.enableValidation();
+const addFormValidation = new FormValidator(validationConfig, addForm);
+addFormValidation.enableValidation();
 const changeFormValidation = new FormValidator(validationConfig, changeForm);
 changeFormValidation.enableValidation();
-// const changeAvatarValidation = new FormValidator(validationConfig, changeAvatarForm);
-// changeAvatarValidation.enableValidation();
+const changeAvatarValidation = new FormValidator(validationConfig, changeAvatarForm);
+changeAvatarValidation.enableValidation();
 //============================================end block where validation for forms are created=======================================
 
 
