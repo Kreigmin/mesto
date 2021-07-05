@@ -56,7 +56,7 @@ Promise.all([setProfile, renderCards]).then((data) => {
 
 //======================================start block where popups and logic for them are created========================================
 //create a sapmple of the PopupWithForm for edit user information popup
-const editPopup = new PopupWithForm(editPopupSelector, changeFormSelector, (data, btn) => {
+const editPopup = new PopupWithForm(editPopupSelector, changeFormSelector, (data) => {
   editPopup.renderLoading(true, 'Сохранение...');
   const {profileName, profileJob} = data;
   api.sendProfileDataToServer(profileName, profileJob)
@@ -76,8 +76,8 @@ const editPopup = new PopupWithForm(editPopupSelector, changeFormSelector, (data
 editPopup.setEventListeners();
 
 //create a sapmple of the PopupWithForm for create new card popup
-const addPopup = new PopupWithForm(addPopupSelector, addFormSelector, (data, btn) => {
-  addPopup.renderLoading(true, 'Создаётся...');
+const addPopup = new PopupWithForm(addPopupSelector, addFormSelector, (data) => {
+  addPopup.renderLoading(true, 'Создание...');
   const {cardName, cardImage} = data
   api.addNewCardToServer(cardName, cardImage).then((card) => {
     cardList.renderCard(card);
@@ -93,7 +93,7 @@ const addPopup = new PopupWithForm(addPopupSelector, addFormSelector, (data, btn
 addPopup.setEventListeners();
 
 //create a sapmple of the PopupWithForm for change avatar popup
-const changeAvatarPopup = new PopupWithForm(changeAvatarPopupSelector, changeAvatarFormSelector, (data, btn) => {
+const changeAvatarPopup = new PopupWithForm(changeAvatarPopupSelector, changeAvatarFormSelector, (data) => {
   changeAvatarPopup.renderLoading(true, 'Сохранение...');
   const avatarLink = data.avatarImage;
   api.changeAvatar(avatarLink)
